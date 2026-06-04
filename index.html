@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>COOKSHOP. Smart Menü</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #D4272C;
+  --red-dark: #A81E22;
+  --dark: #1C1C1C;
+  --off-white: #F9F6F1;
+  --warm-gray: #F0EDE8;
+  --border: #E2DDD6;
+  --text: #2A2A2A;
+  --muted: #888078;
+  --white: #FFFFFF;
+  --green: #3A7D44;
+  --green-bg: #EAF4EC;
+  --orange: #E07B2A;
+  --orange-bg: #FEF3E8;
+  --blue: #2563A8;
+  --blue-bg: #EBF2FB;
+  --tag-vegan: #3A7D44;
+  --tag-fit: #2563A8;
+  --tag-hot: #D4272C;
+  --tag-pop: #C47A1A;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--text);max-width:430px;margin:0 auto;overflow-x:hidden;min-height:100vh;}
+
+/* HEADER */
+.header{background:var(--dark);position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,0.3);}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;}
+.logo-wrap{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;background:var(--red);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.logo-text .brand{font-family:'Playfair Display',serif;font-size:19px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1;}
+.logo-text .brand span{color:var(--red);}
+.logo-text .sub{font-size:9px;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.smart-badge{background:rgba(212,39,44,0.15);border:1px solid rgba(212,39,44,0.3);border-radius:20px;padding:4px 10px;font-size:9px;color:#ff9999;font-weight:600;letter-spacing:0.5px;}
+
+.search-wrap{position:relative;padding:0 14px 12px;}
+.search-icon{position:absolute;left:26px;top:50%;transform:translateY(-50%);color:#888;font-size:15px;pointer-events:none;}
+.search-input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 14px 10px 38px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:.2s;}
+.search-input::placeholder{color:rgba(255,255,255,0.35);}
+.search-input:focus{background:rgba(255,255,255,0.11);border-color:rgba(212,39,44,0.5);}
+
+.filters-scroll{display:flex;gap:7px;overflow-x:auto;padding:0 14px 13px;scrollbar-width:none;}
+.filters-scroll::-webkit-scrollbar{display:none;}
+.ftab{flex-shrink:0;padding:6px 13px;border-radius:20px;font-size:11.5px;font-weight:500;cursor:pointer;border:1.5px solid rgba(255,255,255,0.13);color:rgba(255,255,255,0.55);background:transparent;transition:.2s;white-space:nowrap;}
+.ftab:hover{border-color:rgba(255,255,255,0.28);color:#fff;}
+.ftab.active{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* CATEGORY NAV */
+.cat-nav{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:148px;z-index:100;}
+.cat-nav::-webkit-scrollbar{display:none;}
+.cat-btn{flex-shrink:0;padding:11px 14px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent;transition:.2s;white-space:nowrap;}
+.cat-btn.active{color:var(--red);border-color:var(--red);}
+
+/* BODY */
+.scroll-body{padding-bottom:100px;}
+
+/* SECTION */
+.menu-section{padding:0 14px;}
+.sec-header{display:flex;align-items:center;gap:8px;padding:20px 0 12px;}
+.sec-icon{font-size:20px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--dark);letter-spacing:-0.3px;}
+.sec-count{margin-left:auto;font-size:11px;color:var(--muted);}
+
+/* CARD */
+.menu-card{background:var(--white);border-radius:14px;margin-bottom:9px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform .2s,box-shadow .2s;}
+.menu-card:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.09);}
+.card-top{display:flex;align-items:flex-start;padding:13px;gap:11px;cursor:pointer;}
+.card-emoji{width:54px;height:54px;border-radius:11px;background:var(--warm-gray);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.card-body{flex:1;min-width:0;}
+.card-name{font-weight:600;font-size:14.5px;color:var(--dark);margin-bottom:3px;letter-spacing:-0.2px;}
+.card-desc{font-size:11.5px;color:var(--muted);line-height:1.45;margin-bottom:7px;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+.tag{padding:2px 7px;border-radius:9px;font-size:10px;font-weight:600;letter-spacing:.2px;}
+.tv{background:var(--green-bg);color:var(--green);}
+.tf{background:var(--blue-bg);color:var(--blue);}
+.tr{background:#FDECEA;color:var(--red);}
+.tp{background:#FEF3E8;color:var(--orange);}
+.tk{background:#F3EAF8;color:#7B2FAE;}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;}
+.card-price{font-weight:700;font-size:15px;color:var(--dark);}
+.card-kcal{font-size:11px;color:var(--muted);margin-left:6px;}
+.expand-btn{width:28px;height:28px;border-radius:50%;background:var(--warm-gray);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--dark);transition:.2s;flex-shrink:0;margin-top:auto;}
+.expand-btn.open{background:var(--red);color:#fff;transform:rotate(45deg);}
+
+/* EXPANDED */
+.expanded-panel{display:none;border-top:1px solid var(--border);background:#FAFAF8;}
+.expanded-panel.show{display:block;}
+.ep-section{padding:13px 15px;border-bottom:1px solid var(--border);}
+.ep-section:last-child{border-bottom:none;}
+.ep-label{font-size:9.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+
+/* NUTRITION */
+.nut-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;}
+.nut-cell{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:7px 5px;text-align:center;}
+.nut-val{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);line-height:1;}
+.nut-label{font-size:9px;color:var(--muted);margin-top:3px;}
+.nut-unit{font-size:9px;color:var(--muted);}
+
+/* ALLERGEN */
+.allergen-row{display:flex;flex-wrap:wrap;gap:5px;}
+.achip{display:flex;align-items:center;gap:3px;padding:4px 9px;border-radius:18px;font-size:10.5px;font-weight:500;border:1px solid;}
+.acontains{background:#FFF0EF;border-color:#F5C4C4;color:var(--red);}
+.afree{background:var(--green-bg);border-color:#C4DEB4;color:var(--green);}
+
+/* ADD TO CART */
+.add-row{padding:12px 15px;display:flex;align-items:center;gap:10px;}
+.qty-ctrl{display:flex;align-items:center;gap:10px;background:var(--warm-gray);border-radius:30px;padding:5px 12px;}
+.qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;color:var(--dark);}
+.qty-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.qty-num{font-weight:700;font-size:14px;min-width:20px;text-align:center;}
+.add-btn{flex:1;background:var(--dark);color:#fff;border:none;border-radius:11px;padding:12px;font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:.2s;}
+.add-btn:hover{background:var(--red);}
+.add-btn-price{font-family:'Playfair Display',serif;font-size:15px;}
+
+/* DIVIDER */
+.divider{height:5px;background:var(--warm-gray);margin:8px 0;}
+
+/* BOTTOM */
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid var(--border);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;z-index:300;box-shadow:0 -3px 16px rgba(0,0,0,0.08);}
+.cart-info{display:flex;align-items:center;gap:10px;}
+.cart-ico{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;cursor:pointer;}
+.cart-badge-dot{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff;}
+.cart-label{font-size:11px;color:var(--muted);}
+.cart-total-label{font-weight:700;font-size:15px;}
+.order-btn{background:var(--red);color:#fff;border:none;border-radius:12px;padding:11px 22px;font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;transition:.2s;}
+.order-btn:hover{background:var(--red-dark);}
+
+/* TOAST */
+.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--dark);color:#fff;padding:9px 18px;border-radius:25px;font-size:12.5px;font-weight:500;opacity:0;transition:.3s;z-index:400;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* MODAL OVERLAY */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:500;display:none;align-items:flex-end;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding:24px 20px 40px;}
+.modal-handle{width:38px;height:4px;background:#ddd;border-radius:4px;margin:0 auto 20px;}
+
+/* CART MODAL */
+.cart-item-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.ci-emoji{font-size:24px;}
+.ci-info{flex:1;}
+.ci-name{font-weight:600;font-size:13.5px;}
+.ci-price{font-size:12px;color:var(--muted);}
+.ci-remove{width:26px;height:26px;border-radius:50%;background:var(--warm-gray);border:none;cursor:pointer;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:center;}
+.ci-remove:hover{background:#fde8e8;color:var(--red);}
+.cart-total-row{display:flex;justify-content:space-between;padding:16px 0 10px;font-weight:700;font-size:15px;}
+.checkout-full-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:13px;padding:14px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;margin-top:6px;}
+.checkout-full-btn:hover{background:var(--red-dark);}
+
+/* PAYMENT MODAL */
+.payment-section{margin-bottom:18px;}
+.pay-sec-title{font-weight:700;font-size:13px;margin-bottom:10px;color:var(--dark);}
+.pay-option{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1.5px solid var(--border);border-radius:11px;cursor:pointer;margin-bottom:7px;transition:.2s;}
+.pay-option.selected{border-color:var(--red);background:#FFF6F6;}
+.pay-option-ico{font-size:20px;}
+.pay-option-label{font-size:13.5px;font-weight:500;}
+.pay-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);margin-left:auto;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pay-radio.checked{border-color:var(--red);background:var(--red);}
+.pay-radio.checked::after{content:'';width:7px;height:7px;background:#fff;border-radius:50%;}
+.input-field{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 13px;font-family:'Outfit',sans-serif;font-size:13.5px;outline:none;transition:.2s;background:#fafafa;}
+.input-field:focus{border-color:var(--red);}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.pay-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:13px;padding:14px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;margin-top:8px;}
+.pay-btn:hover{background:var(--red-dark);}
+.order-note-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Outfit',sans-serif;font-size:13px;outline:none;resize:none;height:70px;transition:.2s;}
+.order-note-input:focus{border-color:var(--red);}
+
+/* SUCCESS MODAL */
+.success-modal{text-align:center;padding:10px 0;}
+.success-anim{font-size:64px;margin-bottom:16px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(0.5);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
+.success-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;}
+.success-sub{font-size:13.5px;color:var(--muted);line-height:1.6;max-width:280px;margin:0 auto 24px;}
+.order-code{background:var(--warm-gray);border-radius:12px;padding:14px;margin-bottom:20px;}
+.order-code-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.order-code-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:3px;color:var(--dark);}
+.eta-row{display:flex;gap:12px;margin-bottom:20px;}
+.eta-box{flex:1;background:var(--warm-gray);border-radius:11px;padding:12px;text-align:center;}
+.eta-ico{font-size:22px;margin-bottom:4px;}
+.eta-label{font-size:10px;color:var(--muted);}
+.eta-val{font-weight:700;font-size:13.5px;}
+.done-btn{width:100%;background:var(--dark);color:#fff;border:none;border-radius:13px;padding:13px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+
+/* NO RESULTS */
+.no-results{text-align:center;padding:50px 20px;display:none;}
+.no-results-ico{font-size:44px;margin-bottom:10px;}
+
+/* SECTION TITLE ANCHOR */
+.section-anchor{scroll-margin-top:190px;}
+
+/* POPULAR ROW */
+.popular-scroll-wrap{padding:0 14px;margin-bottom:4px;}
+.popular-scroll{display:flex;gap:9px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.popular-scroll::-webkit-scrollbar{display:none;}
+.pop-card{flex-shrink:0;width:130px;background:#fff;border-radius:13px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:.2s;}
+.pop-card:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,0.09);}
+.pop-card-img{height:72px;background:var(--warm-gray);display:flex;align-items:center;justify-content:center;font-size:32px;}
+.pop-card-body{padding:9px;}
+.pop-card-name{font-weight:600;font-size:12.5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pop-card-kcal{font-size:10px;color:var(--muted);margin-bottom:4px;}
+.pop-card-price{font-weight:700;font-size:13px;}
+
+.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.empty-cart{text-align:center;padding:30px 0;color:var(--muted);font-size:14px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo-wrap">
+      <div class="logo-icon">🍳</div>
+      <div class="logo-text">
+        <div class="brand"><span>COOK</span>SHOP.</div>
+        <div class="sub">Smart Menu · Masa 14</div>
+      </div>
+    </div>
+    <div class="smart-badge">⚡ Smart Menu</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="Yemek veya içecek ara..." oninput="handleSearch(this.value)">
+  </div>
+  <div class="filters-scroll">
+    <button class="ftab active" onclick="setFilter('all',this)">🍽️ Tümü</button>
+    <button class="ftab" onclick="setFilter('pop',this)">🔥 Popüler</button>
+    <button class="ftab" onclick="setFilter('vegan',this)">🌱 Vegan</button>
+    <button class="ftab" onclick="setFilter('fit',this)">💪 Fit</button>
+    <button class="ftab" onclick="setFilter('bowl',this)">🥣 Bowl</button>
+    <button class="ftab" onclick="setFilter('gluten',this)">🌾 Glütensiz</button>
+    <button class="ftab" onclick="setFilter('drink',this)">🥤 İçecekler</button>
+  </div>
+</div>
+
+<!-- CAT NAV -->
+<div class="cat-nav" id="catNav">
+  <button class="cat-btn active" onclick="scrollTo('kahvalti')">Kahvaltı</button>
+  <button class="cat-btn" onclick="scrollTo('atiştirmalik')">Atıştırmalık</button>
+  <button class="cat-btn" onclick="scrollTo('corba')">Çorba</button>
+  <button class="cat-btn" onclick="scrollTo('bowl')">Bowl</button>
+  <button class="cat-btn" onclick="scrollTo('salata')">Salata</button>
+  <button class="cat-btn" onclick="scrollTo('fit')">Fit</button>
+  <button class="cat-btn" onclick="scrollTo('pizza')">Pizza</button>
+  <button class="cat-btn" onclick="scrollTo('makarna')">Makarna</button>
+  <button class="cat-btn" onclick="scrollTo('deniz')">Deniz</button>
+  <button class="cat-btn" onclick="scrollTo('et')">Et</button>
+  <button class="cat-btn" onclick="scrollTo('kofte')">Köfte</button>
+  <button class="cat-btn" onclick="scrollTo('tavuk')">Tavuk</button>
+  <button class="cat-btn" onclick="scrollTo('tatli')">Tatlı</button>
+  <button class="cat-btn" onclick="scrollTo('kahve')">Kahve</button>
+  <button class="cat-btn" onclick="scrollTo('icecek')">İçecek</button>
+</div>
+
+<!-- BODY -->
+<div class="scroll-body" id="scrollBody">
+
+  <!-- POPULAR -->
+  <div id="popularWrap">
+    <div class="menu-section">
+      <div class="sec-header"><span class="sec-icon">🔥</span><span class="sec-title">En Çok Tercih Edilenler</span></div>
+    </div>
+    <div class="popular-scroll-wrap">
+      <div class="popular-scroll">
+        <div class="pop-card" onclick="scrollToCard('izmirli-kofte')"><div class="pop-card-img">🥩</div><div class="pop-card-body"><div class="pop-card-name">Islama Köfte</div><div class="pop-card-kcal">520 kcal</div><div class="pop-card-price">₺420</div></div></div>
+        <div class="pop-card" onclick="scrollToCard('citir-tavuk-salata')"><div class="pop-card-img">🥗</div><div class="pop-card-body"><div class="pop-card-name">Çıtır Tavuk Salata</div><div class="pop-card-kcal">480 kcal</div><div class="pop-card-price">₺335</div></div></div>
+        <div class="pop-card" onclick="scrollToCard('smokey-burger')"><div class="pop-card-img">🍔</div><div class="pop-card-body"><div class="pop-card-name">Smokey Burger</div><div class="pop-card-kcal">750 kcal</div><div class="pop-card-price">₺420</div></div></div>
+        <div class="pop-card" onclick="scrollToCard('fettucine-tavuk')"><div class="pop-card-img">🍝</div><div class="pop-card-body"><div class="pop-card-name">Fettucine Tavuk</div><div class="pop-card-kcal">620 kcal</div><div class="pop-card-price">₺355</div></div></div>
+        <div class="pop-card" onclick="scrollToCard('magnolia')"><div class="pop-card-img">✨</div><div class="pop-card-body"><div class="pop-card-name">Magnolia</div><div class="pop-card-kcal">320 kcal</div><div class="pop-card-price">₺195</div></div></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <!-- ===== KAHVALTI ===== -->
+  <div class="menu-section section-anchor" id="kahvalti">
+    <div class="sec-header"><span class="sec-icon">🌅</span><span class="sec-title">Kahvaltı</span><span class="sec-count">7 ürün</span></div>
+
+    <div class="menu-card" data-tags="pop" id="iki-kahvalti">
+      <div class="card-top" onclick="toggleCard('iki-kahvalti')">
+        <div class="card-emoji">🍽️</div>
+        <div class="card-body">
+          <div class="card-name">İki Kişilik Kahvaltı Tabağı</div>
+          <div class="card-desc">Ezine peyniri, eski kaşar, hellim, çeçil, acuka, şakşuka, gemlik & halhalı zeytin, söğüş, sucuk, 2 haşlanmış yumurta, tereyağı, bal, kaymak, ahududu reçeli, kakaolu fındık kreması, kuru kayısı, ceviz, süt karameli, sıcak hamur işi sepeti, sınırsız çay</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺750</span><span class="card-kcal"> · ~900 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-iki-kahvalti">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-iki-kahvalti">
+        <div class="ep-section">
+          <div class="ep-label">🔬 Tahmini Besin Değerleri</div>
+          <div class="nut-grid">
+            <div class="nut-cell"><div class="nut-val">900</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div>
+            <div class="nut-cell"><div class="nut-val">45g</div><div class="nut-label">Protein</div></div>
+            <div class="nut-cell"><div class="nut-val">80g</div><div class="nut-label">Karb.</div></div>
+            <div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Yağ</div></div>
+          </div>
+        </div>
+        <div class="ep-section">
+          <div class="ep-label">⚠️ Alerjenler</div>
+          <div class="allergen-row">
+            <span class="achip acontains">🌾 Glüten</span>
+            <span class="achip acontains">🥛 Süt Ürünü</span>
+            <span class="achip acontains">🥚 Yumurta</span>
+            <span class="achip acontains">🌰 Sert Kabuklu Meyve</span>
+          </div>
+        </div>
+        <div class="add-row">
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty('iki-kahvalti',-1)">−</button>
+            <div class="qty-num" id="qty-iki-kahvalti">1</div>
+            <button class="qty-btn" onclick="changeQty('iki-kahvalti',1)">+</button>
+          </div>
+          <button class="add-btn" onclick="addToCart('iki-kahvalti','İki Kişilik Kahvaltı Tabağı','🍽️',750)">
+            <span>Sepete Ekle</span>
+            <span class="add-btn-price" id="abp-iki-kahvalti">₺750</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="tek-kahvalti">
+      <div class="card-top" onclick="toggleCard('tek-kahvalti')">
+        <div class="card-emoji">☕</div>
+        <div class="card-body">
+          <div class="card-name">Tek Kişilik Kahvaltı Tabağı</div>
+          <div class="card-desc">Ezine peyniri, çeçil, eski kaşar, sucuk, gemlik zeytini, halhalı zeytin, söğüş, acuka, haşlanmış yumurta, bal, kaymak, kakaolu fındık kreması, çörek, simit, 2 bardak çay</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺355</span><span class="card-kcal"> · ~550 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-tek-kahvalti">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-tek-kahvalti">
+        <div class="ep-section"><div class="ep-label">🔬 Tahmini Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">550</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">25g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🌰 Fındık</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('tek-kahvalti',-1)">−</button><div class="qty-num" id="qty-tek-kahvalti">1</div><button class="qty-btn" onclick="changeQty('tek-kahvalti',1)">+</button></div><button class="add-btn" onclick="addToCart('tek-kahvalti','Tek Kişilik Kahvaltı Tabağı','☕',355)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-tek-kahvalti">₺355</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="gozleme">
+      <div class="card-top" onclick="toggleCard('gozleme')">
+        <div class="card-emoji">🫓</div>
+        <div class="card-body">
+          <div class="card-name">COOKSHOP. Gözleme</div>
+          <div class="card-desc">Tortilla, kaşar peyniri, sucuk, kuru domates, pesto sos, domates&salatalık söğüş</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺230</span><span class="card-kcal"> · ~380 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-gozleme">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-gozleme">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">380</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">17g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('gozleme',-1)">−</button><div class="qty-num" id="qty-gozleme">1</div><button class="qty-btn" onclick="changeQty('gozleme',1)">+</button></div><button class="add-btn" onclick="addToCart('gozleme','COOKSHOP. Gözleme','🫓',230)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-gozleme">₺230</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="muhlama">
+      <div class="card-top" onclick="toggleCard('muhlama')">
+        <div class="card-emoji">🧀</div>
+        <div class="card-body">
+          <div class="card-name">Muhlama</div>
+          <div class="card-desc">Yöresel kavrulmuş mısır unu, muhlamalık peynir</div>
+          <div class="tags"><span class="tag tv">🌾 Glütensiz</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺230</span><span class="card-kcal"> · ~420 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-muhlama">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-muhlama">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">420</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('muhlama',-1)">−</button><div class="qty-num" id="qty-muhlama">1</div><button class="qty-btn" onclick="changeQty('muhlama',1)">+</button></div><button class="add-btn" onclick="addToCart('muhlama','Muhlama','🧀',230)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-muhlama">₺230</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="pancake">
+      <div class="card-top" onclick="toggleCard('pancake')">
+        <div class="card-emoji">🥞</div>
+        <div class="card-body">
+          <div class="card-name">Pancake</div>
+          <div class="card-desc">Çilek, muz, kakaolu fındık kreması, kaymak, pudra şekeri</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺195</span><span class="card-kcal"> · ~480 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-pancake">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-pancake">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">480</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">62g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌰 Fındık</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('pancake',-1)">−</button><div class="qty-num" id="qty-pancake">1</div><button class="qty-btn" onclick="changeQty('pancake',1)">+</button></div><button class="add-btn" onclick="addToCart('pancake','Pancake','🥞',195)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-pancake">₺195</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== ATIŞTIRMALIK ===== -->
+  <div class="menu-section section-anchor" id="atiştirmalik">
+    <div class="sec-header"><span class="sec-icon">🍟</span><span class="sec-title">Atıştırmalık</span><span class="sec-count">11 ürün</span></div>
+
+    <div class="menu-card" data-tags="vegan" id="bruschetta">
+      <div class="card-top" onclick="toggleCard('bruschetta')">
+        <div class="card-emoji">🍞</div>
+        <div class="card-body">
+          <div class="card-name">Bruschetta Caprese</div>
+          <div class="card-desc">Focaccia ekmeği, guacamole sos, kinoa, domates, fesleğen, misket peynir</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺295</span><span class="card-kcal"> · ~340 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-bruschetta">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-bruschetta">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">340</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip afree">✓ Et Yok</span><span class="achip afree">✓ Yumurta Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('bruschetta',-1)">−</button><div class="qty-num" id="qty-bruschetta">1</div><button class="qty-btn" onclick="changeQty('bruschetta',1)">+</button></div><button class="add-btn" onclick="addToCart('bruschetta','Bruschetta Caprese','🍞',295)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-bruschetta">₺295</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="chickyland">
+      <div class="card-top" onclick="toggleCard('chickyland')">
+        <div class="card-emoji">🍗</div>
+        <div class="card-body">
+          <div class="card-name">Chickyland</div>
+          <div class="card-desc">Tavuk kanat, çıtır tavuk, soğan halkası, patates kızartması, chili sos, rokfor sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺320</span><span class="card-kcal"> · ~680 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-chickyland">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-chickyland">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">680</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">30g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('chickyland',-1)">−</button><div class="qty-num" id="qty-chickyland">1</div><button class="qty-btn" onclick="changeQty('chickyland',1)">+</button></div><button class="add-btn" onclick="addToCart('chickyland','Chickyland','🍗',320)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-chickyland">₺320</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="fish-chips">
+      <div class="card-top" onclick="toggleCard('fish-chips')">
+        <div class="card-emoji">🐟</div>
+        <div class="card-body">
+          <div class="card-name">Fish & Chips</div>
+          <div class="card-desc">Parmak patates, limon, guacamole sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺375</span><span class="card-kcal"> · ~580 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-fish-chips">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-fish-chips">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">580</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">32g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">55g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">25g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🐟 Balık</span><span class="achip acontains">🥚 Yumurta</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('fish-chips',-1)">−</button><div class="qty-num" id="qty-fish-chips">1</div><button class="qty-btn" onclick="changeQty('fish-chips',1)">+</button></div><button class="add-btn" onclick="addToCart('fish-chips','Fish & Chips','🐟',375)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-fish-chips">₺375</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="peynir-tabagi">
+      <div class="card-top" onclick="toggleCard('peynir-tabagi')">
+        <div class="card-emoji">🧀</div>
+        <div class="card-body">
+          <div class="card-name">Peynir Tabağı</div>
+          <div class="card-desc">Rokfor, edam, parmesan, eski kaşar, isli çerkez, beyaz peynir, üzüm, ceviz, kuru kayısı, focaccia ekmek</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺420</span><span class="card-kcal"> · ~620 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-peynir-tabagi">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-peynir-tabagi">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">620</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">32g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">36g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌰 Sert Kabuklu Meyve</span><span class="achip acontains">🌾 Glüten</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('peynir-tabagi',-1)">−</button><div class="qty-num" id="qty-peynir-tabagi">1</div><button class="qty-btn" onclick="changeQty('peynir-tabagi',1)">+</button></div><button class="add-btn" onclick="addToCart('peynir-tabagi','Peynir Tabağı','🧀',420)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-peynir-tabagi">₺420</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== CORBA ===== -->
+  <div class="menu-section section-anchor" id="corba">
+    <div class="sec-header"><span class="sec-icon">🍲</span><span class="sec-title">Çorbalar</span><span class="sec-count">3 ürün</span></div>
+
+    <div class="menu-card" data-tags="vegan" id="cs-corba">
+      <div class="card-top" onclick="toggleCard('cs-corba')">
+        <div class="card-emoji">🥣</div>
+        <div class="card-body">
+          <div class="card-name">COOKSHOP. Çorba</div>
+          <div class="card-desc">Sicilya usulü sebze çorbası</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺160</span><span class="card-kcal"> · ~180 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-cs-corba">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-cs-corba">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">180</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">5g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌿 Kereviz</span><span class="achip afree">✓ Glüten Yok</span><span class="achip afree">✓ Et Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('cs-corba',-1)">−</button><div class="qty-num" id="qty-cs-corba">1</div><button class="qty-btn" onclick="changeQty('cs-corba',1)">+</button></div><button class="add-btn" onclick="addToCart('cs-corba','COOKSHOP. Çorba','🥣',160)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-cs-corba">₺160</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="aci-eksi">
+      <div class="card-top" onclick="toggleCard('aci-eksi')">
+        <div class="card-emoji">🌶️</div>
+        <div class="card-body">
+          <div class="card-name">Acı Ekşi Çorba</div>
+          <div class="card-desc">Uzak Doğu usulü, acı</div>
+          <div class="tags"><span class="tag tr">🌶️ Acı</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺210</span><span class="card-kcal"> · ~220 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-aci-eksi">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-aci-eksi">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">220</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">7g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🫘 Soya</span><span class="achip acontains">🌿 Kereviz</span><span class="achip acontains">🌰 Susam</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('aci-eksi',-1)">−</button><div class="qty-num" id="qty-aci-eksi">1</div><button class="qty-btn" onclick="changeQty('aci-eksi',1)">+</button></div><button class="add-btn" onclick="addToCart('aci-eksi','Acı Ekşi Çorba','🌶️',210)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-aci-eksi">₺210</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== BOWL ===== -->
+  <div class="menu-section section-anchor" id="bowl">
+    <div class="sec-header"><span class="sec-icon">🥣</span><span class="sec-title">Bowl</span><span class="sec-count">5 ürün</span></div>
+
+    <div class="menu-card" data-tags="bowl fit pop" id="steak-bowl">
+      <div class="card-top" onclick="toggleCard('steak-bowl')">
+        <div class="card-emoji">🥩</div>
+        <div class="card-body">
+          <div class="card-name">Semizotlu Kuskuslu Steak Bowl</div>
+          <div class="card-desc">Salçalı kuskus, semiz otu, ekşi krema, domates</div>
+          <div class="tags"><span class="tag tf">💪 Protein</span><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺410</span><span class="card-kcal"> · ~560 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-steak-bowl">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-steak-bowl">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">560</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">48g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('steak-bowl',-1)">−</button><div class="qty-num" id="qty-steak-bowl">1</div><button class="qty-btn" onclick="changeQty('steak-bowl',1)">+</button></div><button class="add-btn" onclick="addToCart('steak-bowl','Semizotlu Kuskuslu Steak Bowl','🥩',410)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-steak-bowl">₺410</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="bowl fit" id="tavuklu-keci-bowl">
+      <div class="card-top" onclick="toggleCard('tavuklu-keci-bowl')">
+        <div class="card-emoji">🍗</div>
+        <div class="card-body">
+          <div class="card-name">Tavuklu Keçi Peynirli Bowl</div>
+          <div class="card-desc">Kinoa, göbek, Akdeniz yeşillikleri, nar ekşisi, portakal, nohut</div>
+          <div class="tags"><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺345</span><span class="card-kcal"> · ~480 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-tavuklu-keci-bowl">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-tavuklu-keci-bowl">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">480</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">44g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('tavuklu-keci-bowl',-1)">−</button><div class="qty-num" id="qty-tavuklu-keci-bowl">1</div><button class="qty-btn" onclick="changeQty('tavuklu-keci-bowl',1)">+</button></div><button class="add-btn" onclick="addToCart('tavuklu-keci-bowl','Tavuklu Keçi Peynirli Bowl','🍗',345)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-tavuklu-keci-bowl">₺345</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="bowl vegan fit gluten" id="summer-bowl">
+      <div class="card-top" onclick="toggleCard('summer-bowl')">
+        <div class="card-emoji">🥦</div>
+        <div class="card-body">
+          <div class="card-name">COOKSHOP. Summer Bowl</div>
+          <div class="card-desc">Brokoli, karnabahar, renkli biberler, domates, salatalık, koçan mısır, nohut, nar ekşisi</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Fit</span><span class="tag tv">🌾 Glütensiz</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺330</span><span class="card-kcal"> · ~310 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-summer-bowl">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-summer-bowl">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">310</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Glüten Yok</span><span class="achip afree">✓ Et Yok</span><span class="achip afree">✓ Süt Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('summer-bowl',-1)">−</button><div class="qty-num" id="qty-summer-bowl">1</div><button class="qty-btn" onclick="changeQty('summer-bowl',1)">+</button></div><button class="add-btn" onclick="addToCart('summer-bowl','Summer Bowl','🥦',330)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-summer-bowl">₺330</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== SALATA ===== -->
+  <div class="menu-section section-anchor" id="salata">
+    <div class="sec-header"><span class="sec-icon">🥗</span><span class="sec-title">Salatalar</span><span class="sec-count">11 ürün</span></div>
+
+    <div class="menu-card" data-tags="pop" id="citir-tavuk-salata">
+      <div class="card-top" onclick="toggleCard('citir-tavuk-salata')">
+        <div class="card-emoji">🥗</div>
+        <div class="card-body">
+          <div class="card-name">Çıtır Tavuk Salatası</div>
+          <div class="card-desc">Akdeniz yeşillikleri, portakal krema sos, renkli biberler, kokteyl sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺335</span><span class="card-kcal"> · ~480 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-citir-tavuk-salata">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-citir-tavuk-salata">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">480</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">34g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('citir-tavuk-salata',-1)">−</button><div class="qty-num" id="qty-citir-tavuk-salata">1</div><button class="qty-btn" onclick="changeQty('citir-tavuk-salata',1)">+</button></div><button class="add-btn" onclick="addToCart('citir-tavuk-salata','Çıtır Tavuk Salatası','🥗',335)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-citir-tavuk-salata">₺335</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="izgara-tavuk-salata">
+      <div class="card-top" onclick="toggleCard('izgara-tavuk-salata')">
+        <div class="card-emoji">🥙</div>
+        <div class="card-body">
+          <div class="card-name">Izgara Tavuk Salatası</div>
+          <div class="card-desc">Akdeniz yeşillikleri, domates, salatalık, baby mısır, havuç, parmesan, balzamik sos</div>
+          <div class="tags"><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺335</span><span class="card-kcal"> · ~380 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-izgara-tavuk-salata">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-izgara-tavuk-salata">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">380</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">36g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('izgara-tavuk-salata',-1)">−</button><div class="qty-num" id="qty-izgara-tavuk-salata">1</div><button class="qty-btn" onclick="changeQty('izgara-tavuk-salata',1)">+</button></div><button class="add-btn" onclick="addToCart('izgara-tavuk-salata','Izgara Tavuk Salatası','🥙',335)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-izgara-tavuk-salata">₺335</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan" id="kinoa-salata">
+      <div class="card-top" onclick="toggleCard('kinoa-salata')">
+        <div class="card-emoji">🌿</div>
+        <div class="card-body">
+          <div class="card-name">Kinoa Salatası</div>
+          <div class="card-desc">Akdeniz yeşillikleri, göbek, roka, nane, yoğurt sos</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺320</span><span class="card-kcal"> · ~340 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-kinoa-salata">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-kinoa-salata">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">340</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">46g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">10g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span><span class="achip afree">✓ Et Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('kinoa-salata',-1)">−</button><div class="qty-num" id="qty-kinoa-salata">1</div><button class="qty-btn" onclick="changeQty('kinoa-salata',1)">+</button></div><button class="add-btn" onclick="addToCart('kinoa-salata','Kinoa Salatası','🌿',320)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-kinoa-salata">₺320</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== FIT ===== -->
+  <div class="menu-section section-anchor" id="fit">
+    <div class="sec-header"><span class="sec-icon">💪</span><span class="sec-title">Fit Tatlar</span><span class="sec-count">5 ürün</span></div>
+
+    <div class="menu-card" data-tags="fit vegan" id="kepekli-wrap">
+      <div class="card-top" onclick="toggleCard('kepekli-wrap')">
+        <div class="card-emoji">🌯</div>
+        <div class="card-body">
+          <div class="card-name">Kepekli Sebzeli Wrap</div>
+          <div class="card-desc">Renkli biberler, kabak, tane mısır, mantar, maydanoz, taze kaşar, guacamole sos, salsa sos, yeşil salata</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺325</span><span class="card-kcal"> · ~390 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-kepekli-wrap">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-kepekli-wrap">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">390</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Et Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('kepekli-wrap',-1)">−</button><div class="qty-num" id="qty-kepekli-wrap">1</div><button class="qty-btn" onclick="changeQty('kepekli-wrap',1)">+</button></div><button class="add-btn" onclick="addToCart('kepekli-wrap','Kepekli Sebzeli Wrap','🌯',325)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-kepekli-wrap">₺325</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="fit" id="hellimli-kabak">
+      <div class="card-top" onclick="toggleCard('hellimli-kabak')">
+        <div class="card-emoji">🥒</div>
+        <div class="card-body">
+          <div class="card-name">Hellimli Kabak Spaghetti</div>
+          <div class="card-desc">Kabak, roka, ceviz, tereyağı, parmesan, domates</div>
+          <div class="tags"><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺365</span><span class="card-kcal"> · ~420 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-hellimli-kabak">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-hellimli-kabak">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">420</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌰 Ceviz</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('hellimli-kabak',-1)">−</button><div class="qty-num" id="qty-hellimli-kabak">1</div><button class="qty-btn" onclick="changeQty('hellimli-kabak',1)">+</button></div><button class="add-btn" onclick="addToCart('hellimli-kabak','Hellimli Kabak Spaghetti','🥒',365)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-hellimli-kabak">₺365</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== PIZZA ===== -->
+  <div class="menu-section section-anchor" id="pizza">
+    <div class="sec-header"><span class="sec-icon">🍕</span><span class="sec-title">Pizza (1-2 Kişilik)</span><span class="sec-count">10 ürün</span></div>
+
+    <div class="menu-card" data-tags="vegan" id="margherita">
+      <div class="card-top" onclick="toggleCard('margherita')">
+        <div class="card-emoji">🍕</div>
+        <div class="card-body">
+          <div class="card-name">Margherita</div>
+          <div class="card-desc">Domates sos, mozzarella</div>
+          <div class="tags"><span class="tag tv">🌱 Vejetaryen</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺295</span><span class="card-kcal"> · ~580 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-margherita">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-margherita">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">580</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">72g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('margherita',-1)">−</button><div class="qty-num" id="qty-margherita">1</div><button class="qty-btn" onclick="changeQty('margherita',1)">+</button></div><button class="add-btn" onclick="addToCart('margherita','Margherita','🍕',295)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-margherita">₺295</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="pop" id="ispanyol-sucuklu">
+      <div class="card-top" onclick="toggleCard('ispanyol-sucuklu')">
+        <div class="card-emoji">🌶️</div>
+        <div class="card-body">
+          <div class="card-name">İspanyol Sucuklu Pizza</div>
+          <div class="card-desc">Domates, siyah zeytin, fesleğen, mozzarella</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺410</span><span class="card-kcal"> · ~720 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-ispanyol-sucuklu">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-ispanyol-sucuklu">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">720</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">34g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">74g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">30g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('ispanyol-sucuklu',-1)">−</button><div class="qty-num" id="qty-ispanyol-sucuklu">1</div><button class="qty-btn" onclick="changeQty('ispanyol-sucuklu',1)">+</button></div><button class="add-btn" onclick="addToCart('ispanyol-sucuklu','İspanyol Sucuklu Pizza','🌶️',410)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-ispanyol-sucuklu">₺410</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan" id="vejeteryan-pizza">
+      <div class="card-top" onclick="toggleCard('vejeteryan-pizza')">
+        <div class="card-emoji">🥦</div>
+        <div class="card-body">
+          <div class="card-name">Vejeteryan Pizza</div>
+          <div class="card-desc">Renkli biberler, mantar, ıspanak, karışık tahıl, mozzarella</div>
+          <div class="tags"><span class="tag tv">🌱 Vejetaryen</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺345</span><span class="card-kcal"> · ~620 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-vejeteryan-pizza">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-vejeteryan-pizza">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">620</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">76g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Et Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('vejeteryan-pizza',-1)">−</button><div class="qty-num" id="qty-vejeteryan-pizza">1</div><button class="qty-btn" onclick="changeQty('vejeteryan-pizza',1)">+</button></div><button class="add-btn" onclick="addToCart('vejeteryan-pizza','Vejeteryan Pizza','🥦',345)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-vejeteryan-pizza">₺345</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== MAKARNA ===== -->
+  <div class="menu-section section-anchor" id="makarna">
+    <div class="sec-header"><span class="sec-icon">🍝</span><span class="sec-title">Makarna & Risotto</span><span class="sec-count">12 ürün</span></div>
+
+    <div class="menu-card" data-tags="pop" id="fettucine-tavuk">
+      <div class="card-top" onclick="toggleCard('fettucine-tavuk')">
+        <div class="card-emoji">🍝</div>
+        <div class="card-body">
+          <div class="card-name">Fettucine Tavuk</div>
+          <div class="card-desc">Krema, renkli biberler, soğan, mantar, parmesan, pesto sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺355</span><span class="card-kcal"> · ~620 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-fettucine-tavuk">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-fettucine-tavuk">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">620</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">40g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">68g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌰 Sert Kabuklu Meyve</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('fettucine-tavuk',-1)">−</button><div class="qty-num" id="qty-fettucine-tavuk">1</div><button class="qty-btn" onclick="changeQty('fettucine-tavuk',1)">+</button></div><button class="add-btn" onclick="addToCart('fettucine-tavuk','Fettucine Tavuk','🍝',355)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-fettucine-tavuk">₺355</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="spaghetti-bolognese">
+      <div class="card-top" onclick="toggleCard('spaghetti-bolognese')">
+        <div class="card-emoji">🍝</div>
+        <div class="card-body">
+          <div class="card-name">Spaghetti Bolognese</div>
+          <div class="card-desc">Dana kıyma, domates sos</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺345</span><span class="card-kcal"> · ~580 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-spaghetti-bolognese">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-spaghetti-bolognese">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">580</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">36g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">70g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('spaghetti-bolognese',-1)">−</button><div class="qty-num" id="qty-spaghetti-bolognese">1</div><button class="qty-btn" onclick="changeQty('spaghetti-bolognese',1)">+</button></div><button class="add-btn" onclick="addToCart('spaghetti-bolognese','Spaghetti Bolognese','🍝',345)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-spaghetti-bolognese">₺345</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan" id="penne-arrabiata">
+      <div class="card-top" onclick="toggleCard('penne-arrabiata')">
+        <div class="card-emoji">🍝</div>
+        <div class="card-body">
+          <div class="card-name">Penne Arrabiata</div>
+          <div class="card-desc">Baharatlı domates sos, acı</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tr">🌶️ Acı</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺295</span><span class="card-kcal"> · ~480 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-penne-arrabiata">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-penne-arrabiata">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">480</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">82g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🌿 Kereviz</span><span class="achip afree">✓ Et Yok</span><span class="achip afree">✓ Süt Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('penne-arrabiata',-1)">−</button><div class="qty-num" id="qty-penne-arrabiata">1</div><button class="qty-btn" onclick="changeQty('penne-arrabiata',1)">+</button></div><button class="add-btn" onclick="addToCart('penne-arrabiata','Penne Arrabiata','🍝',295)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-penne-arrabiata">₺295</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== DENIZ ===== -->
+  <div class="menu-section section-anchor" id="deniz">
+    <div class="sec-header"><span class="sec-icon">🐟</span><span class="sec-title">Deniz Ürünleri</span><span class="sec-count">4 ürün</span></div>
+
+    <div class="menu-card" data-tags="fit pop" id="somon-izgara">
+      <div class="card-top" onclick="toggleCard('somon-izgara')">
+        <div class="card-emoji">🐟</div>
+        <div class="card-body">
+          <div class="card-name">Somon Izgara</div>
+          <div class="card-desc">Fırın patates, kinoalı kuskus salatası, kapari, limon sos</div>
+          <div class="tags"><span class="tag tf">💪 Protein</span><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺595</span><span class="card-kcal"> · ~520 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-somon-izgara">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-somon-izgara">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">520</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">46g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🐟 Balık</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🧂 Hardal</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('somon-izgara',-1)">−</button><div class="qty-num" id="qty-somon-izgara">1</div><button class="qty-btn" onclick="changeQty('somon-izgara',1)">+</button></div><button class="add-btn" onclick="addToCart('somon-izgara','Somon Izgara','🐟',595)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-somon-izgara">₺595</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== ET ===== -->
+  <div class="menu-section section-anchor" id="et">
+    <div class="sec-header"><span class="sec-icon">🥩</span><span class="sec-title">Et Yemekleri</span><span class="sec-count">5 ürün</span></div>
+
+    <div class="menu-card" data-tags="" id="naturel-bonfile">
+      <div class="card-top" onclick="toggleCard('naturel-bonfile')">
+        <div class="card-emoji">🥩</div>
+        <div class="card-body">
+          <div class="card-name">Naturel Bonfile</div>
+          <div class="card-desc">Sotelenmiş ıspanak, istiridye mantarı, fırın patates</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺625</span><span class="card-kcal"> · ~680 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-naturel-bonfile">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-naturel-bonfile">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">680</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">32g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">34g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('naturel-bonfile',-1)">−</button><div class="qty-num" id="qty-naturel-bonfile">1</div><button class="qty-btn" onclick="changeQty('naturel-bonfile',1)">+</button></div><button class="add-btn" onclick="addToCart('naturel-bonfile','Naturel Bonfile','🥩',625)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-naturel-bonfile">₺625</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== KOFTE ===== -->
+  <div class="menu-section section-anchor" id="kofte">
+    <div class="sec-header"><span class="sec-icon">🍢</span><span class="sec-title">Köfteler</span><span class="sec-count">6 ürün</span></div>
+
+    <div class="menu-card" data-tags="pop" id="izmirli-kofte">
+      <div class="card-top" onclick="toggleCard('izmirli-kofte')">
+        <div class="card-emoji">🍢</div>
+        <div class="card-body">
+          <div class="card-name">Islama Köfte</div>
+          <div class="card-desc">Özel soslu ekmek dilimleri, közlenmiş patlıcan salatası ve salsa sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺420</span><span class="card-kcal"> · ~520 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-izmirli-kofte">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-izmirli-kofte">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">520</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">48g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('izmirli-kofte',-1)">−</button><div class="qty-num" id="qty-izmirli-kofte">1</div><button class="qty-btn" onclick="changeQty('izmirli-kofte',1)">+</button></div><button class="add-btn" onclick="addToCart('izmirli-kofte','Islama Köfte','🍢',420)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-izmirli-kofte">₺420</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="smokey-burger">
+      <div class="card-top" onclick="toggleCard('smokey-burger')">
+        <div class="card-emoji">🍔</div>
+        <div class="card-body">
+          <div class="card-name">Smokey Burger</div>
+          <div class="card-desc">Dana bacon, cheddar peyniri, soğan halkası, patates kızartması</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺420</span><span class="card-kcal"> · ~750 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-smokey-burger">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-smokey-burger">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">750</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">46g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">62g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">32g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🧂 Hardal</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('smokey-burger',-1)">−</button><div class="qty-num" id="qty-smokey-burger">1</div><button class="qty-btn" onclick="changeQty('smokey-burger',1)">+</button></div><button class="add-btn" onclick="addToCart('smokey-burger','Smokey Burger','🍔',420)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-smokey-burger">₺420</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="citir-tavuk-burger">
+      <div class="card-top" onclick="toggleCard('citir-tavuk-burger')">
+        <div class="card-emoji">🍔</div>
+        <div class="card-body">
+          <div class="card-name">Çıtır Tavuk Burger</div>
+          <div class="card-desc">Karamelize soğan&mantar, taze kaşar, domates, patates kızartması, coleslaw</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺325</span><span class="card-kcal"> · ~640 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-citir-tavuk-burger">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-citir-tavuk-burger">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">640</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">60g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('citir-tavuk-burger',-1)">−</button><div class="qty-num" id="qty-citir-tavuk-burger">1</div><button class="qty-btn" onclick="changeQty('citir-tavuk-burger',1)">+</button></div><button class="add-btn" onclick="addToCart('citir-tavuk-burger','Çıtır Tavuk Burger','🍔',325)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-citir-tavuk-burger">₺325</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== TAVUK ===== -->
+  <div class="menu-section section-anchor" id="tavuk">
+    <div class="sec-header"><span class="sec-icon">🍗</span><span class="sec-title">Tavuk Yemekleri</span><span class="sec-count">10 ürün</span></div>
+
+    <div class="menu-card" data-tags="pop fit" id="izgara-tavuk">
+      <div class="card-top" onclick="toggleCard('izgara-tavuk')">
+        <div class="card-emoji">🍗</div>
+        <div class="card-body">
+          <div class="card-name">Izgara Tavuk</div>
+          <div class="card-desc">Izgara sebze</div>
+          <div class="tags"><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺385</span><span class="card-kcal"> · ~420 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-izgara-tavuk">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-izgara-tavuk">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">420</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">46g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Glüten Yok</span><span class="achip afree">✓ Süt Yok</span><span class="achip afree">✓ Düşük Karb.</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('izgara-tavuk',-1)">−</button><div class="qty-num" id="qty-izgara-tavuk">1</div><button class="qty-btn" onclick="changeQty('izgara-tavuk',1)">+</button></div><button class="add-btn" onclick="addToCart('izgara-tavuk','Izgara Tavuk','🍗',385)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-izgara-tavuk">₺385</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="mexicana-tavuk">
+      <div class="card-top" onclick="toggleCard('mexicana-tavuk')">
+        <div class="card-emoji">🌶️</div>
+        <div class="card-body">
+          <div class="card-name">Mexicana Tavuk</div>
+          <div class="card-desc">9 baharat, krema, renkli biberler, domates sos, soğan, mantar, patates kızartması — Acı!</div>
+          <div class="tags"><span class="tag tr">🌶️ Acı</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺405</span><span class="card-kcal"> · ~560 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-mexicana-tavuk">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-mexicana-tavuk">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">560</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">40g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">44g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('mexicana-tavuk',-1)">−</button><div class="qty-num" id="qty-mexicana-tavuk">1</div><button class="qty-btn" onclick="changeQty('mexicana-tavuk',1)">+</button></div><button class="add-btn" onclick="addToCart('mexicana-tavuk','Mexicana Tavuk','🌶️',405)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-mexicana-tavuk">₺405</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== TATLI ===== -->
+  <div class="menu-section section-anchor" id="tatli">
+    <div class="sec-header"><span class="sec-icon">🍰</span><span class="sec-title">Tatlılar</span><span class="sec-count">9 ürün</span></div>
+
+    <div class="menu-card" data-tags="pop" id="magnolia">
+      <div class="card-top" onclick="toggleCard('magnolia')">
+        <div class="card-emoji">✨</div>
+        <div class="card-body">
+          <div class="card-name">Magnolia</div>
+          <div class="card-desc">COOKSHOP.'un imza tatlısı (2008'den beri). Muz / Çilek / Oreo / Nutella / Karışık seçenekleri</div>
+          <div class="tags"><span class="tag tp">🔥 İmza Tatlısı</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺195</span><span class="card-kcal"> · ~320 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-magnolia">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-magnolia">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">320</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">7g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌰 Sert Kabuklu Meyve</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('magnolia',-1)">−</button><div class="qty-num" id="qty-magnolia">1</div><button class="qty-btn" onclick="changeQty('magnolia',1)">+</button></div><button class="add-btn" onclick="addToCart('magnolia','Magnolia','✨',195)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-magnolia">₺195</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="brownie">
+      <div class="card-top" onclick="toggleCard('brownie')">
+        <div class="card-emoji">🍫</div>
+        <div class="card-body">
+          <div class="card-name">Beyaz Çikolatalı Brownie</div>
+          <div class="card-desc">Vanilyalı dondurma ile ılık servis edilir</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺220</span><span class="card-kcal"> · ~420 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-brownie">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-brownie">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">420</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🌾 Glüten</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('brownie',-1)">−</button><div class="qty-num" id="qty-brownie">1</div><button class="qty-btn" onclick="changeQty('brownie',1)">+</button></div><button class="add-btn" onclick="addToCart('brownie','Beyaz Çikolatalı Brownie','🍫',220)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-brownie">₺220</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="cheesecake">
+      <div class="card-top" onclick="toggleCard('cheesecake')">
+        <div class="card-emoji">🍰</div>
+        <div class="card-body">
+          <div class="card-name">Frambuazlı Cheesecake</div>
+          <div class="card-desc">Ev yapımı cheesecake, taze frambuaz sosu</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺220</span><span class="card-kcal"> · ~380 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-cheesecake">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-cheesecake">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">380</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('cheesecake',-1)">−</button><div class="qty-num" id="qty-cheesecake">1</div><button class="qty-btn" onclick="changeQty('cheesecake',1)">+</button></div><button class="add-btn" onclick="addToCart('cheesecake','Frambuazlı Cheesecake','🍰',220)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-cheesecake">₺220</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== KAHVE ===== -->
+  <div class="menu-section section-anchor" id="kahve">
+    <div class="sec-header"><span class="sec-icon">☕</span><span class="sec-title">Kahve</span><span class="sec-count">11 ürün</span></div>
+
+    <div class="menu-card" data-tags="drink" id="cafe-latte">
+      <div class="card-top" onclick="toggleCard('cafe-latte')">
+        <div class="card-emoji">☕</div>
+        <div class="card-body">
+          <div class="card-name">Cafe Latte</div>
+          <div class="card-desc">Laktozsuz ve light süt seçenekleriyle de sipariş edilebilir</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺155</span><span class="card-kcal"> · ~140 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-cafe-latte">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-cafe-latte">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">140</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('cafe-latte',-1)">−</button><div class="qty-num" id="qty-cafe-latte">1</div><button class="qty-btn" onclick="changeQty('cafe-latte',1)">+</button></div><button class="add-btn" onclick="addToCart('cafe-latte','Cafe Latte','☕',155)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-cafe-latte">₺155</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink" id="turk-kahvesi">
+      <div class="card-top" onclick="toggleCard('turk-kahvesi')">
+        <div class="card-emoji">☕</div>
+        <div class="card-body">
+          <div class="card-name">Türk Kahvesi</div>
+          <div class="card-desc">Sade veya sakızlı seçeneğiyle</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺115</span><span class="card-kcal"> · ~5 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-turk-kahvesi">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-turk-kahvesi">
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Süt Yok</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('turk-kahvesi',-1)">−</button><div class="qty-num" id="qty-turk-kahvesi">1</div><button class="qty-btn" onclick="changeQty('turk-kahvesi',1)">+</button></div><button class="add-btn" onclick="addToCart('turk-kahvesi','Türk Kahvesi','☕',115)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-turk-kahvesi">₺115</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink" id="cafe-frappe">
+      <div class="card-top" onclick="toggleCard('cafe-frappe')">
+        <div class="card-emoji">🧊</div>
+        <div class="card-body">
+          <div class="card-name">COOKSHOP. Cafe Frappe</div>
+          <div class="card-desc">Sade veya Karamelli</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺175</span><span class="card-kcal"> · ~180 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-cafe-frappe">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-cafe-frappe">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">180</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">5g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('cafe-frappe',-1)">−</button><div class="qty-num" id="qty-cafe-frappe">1</div><button class="qty-btn" onclick="changeQty('cafe-frappe',1)">+</button></div><button class="add-btn" onclick="addToCart('cafe-frappe','COOKSHOP. Cafe Frappe','🧊',175)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-cafe-frappe">₺175</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== İÇECEK ===== -->
+  <div class="menu-section section-anchor" id="icecek">
+    <div class="sec-header"><span class="sec-icon">🥤</span><span class="sec-title">İçecekler</span><span class="sec-count">20 ürün</span></div>
+
+    <div class="menu-card" data-tags="drink vegan" id="detox-green">
+      <div class="card-top" onclick="toggleCard('detox-green')">
+        <div class="card-emoji">🥬</div>
+        <div class="card-body">
+          <div class="card-name">Detox Green</div>
+          <div class="card-desc">Maydanoz, roka, yeşil elma, salatalık, lime</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Detoks</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺180</span><span class="card-kcal"> · ~80 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-detox-green">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-detox-green">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">80</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">2g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('detox-green',-1)">−</button><div class="qty-num" id="qty-detox-green">1</div><button class="qty-btn" onclick="changeQty('detox-green',1)">+</button></div><button class="add-btn" onclick="addToCart('detox-green','Detox Green','🥬',180)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-detox-green">₺180</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink vegan" id="homemade-lemonade">
+      <div class="card-top" onclick="toggleCard('homemade-lemonade')">
+        <div class="card-emoji">🍋</div>
+        <div class="card-body">
+          <div class="card-name">Homemade Lemonade</div>
+          <div class="card-desc">Klasik / Çilekli / Naneli / Salatalıklı seçenekleri</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺165</span><span class="card-kcal"> · ~95 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-homemade-lemonade">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-homemade-lemonade">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">95</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('homemade-lemonade',-1)">−</button><div class="qty-num" id="qty-homemade-lemonade">1</div><button class="qty-btn" onclick="changeQty('homemade-lemonade',1)">+</button></div><button class="add-btn" onclick="addToCart('homemade-lemonade','Homemade Lemonade','🍋',165)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-homemade-lemonade">₺165</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink" id="bubble-tea">
+      <div class="card-top" onclick="toggleCard('bubble-tea')">
+        <div class="card-emoji">🧋</div>
+        <div class="card-body">
+          <div class="card-name">Bubble Tea</div>
+          <div class="card-desc">Ananas (Mango babojoy) / Çilek (Lime babojoy) seçenekleri</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺180</span><span class="card-kcal"> · ~160 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-bubble-tea">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-bubble-tea">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">160</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">1g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('bubble-tea',-1)">−</button><div class="qty-num" id="qty-bubble-tea">1</div><button class="qty-btn" onclick="changeQty('bubble-tea',1)">+</button></div><button class="add-btn" onclick="addToCart('bubble-tea','Bubble Tea','🧋',180)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-bubble-tea">₺180</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div id="noResults" class="no-results">
+    <div class="no-results-ico">🔍</div>
+    <div style="font-weight:700;margin-bottom:6px;">Sonuç bulunamadı</div>
+    <div style="font-size:13px;color:var(--muted);">Farklı bir arama veya filtre deneyin</div>
+  </div>
+
+</div><!-- end scroll-body -->
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar" id="bottomBar" style="display:none;">
+  <div class="cart-info">
+    <div class="cart-ico" onclick="openCartModal()">
+      🛒
+      <div class="cart-badge-dot" id="cartBadge">0</div>
+    </div>
+    <div>
+      <div class="cart-label" id="cartLabel">0 ürün</div>
+      <div class="cart-total-label" id="cartTotalLabel">₺0</div>
+    </div>
+  </div>
+  <button class="order-btn" onclick="openCartModal()">Siparişi Gör →</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CART MODAL -->
+<div class="modal-overlay" id="cartModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🛒 Sepetim</div>
+    <div class="modal-sub" id="cartModalSub">Siparişinizi kontrol edin</div>
+    <div id="cartItemsList"><div class="empty-cart">Sepetiniz boş</div></div>
+    <div class="cart-total-row" id="cartTotalRow" style="display:none;">
+      <span>Toplam</span><span id="cartModalTotal">₺0</span>
+    </div>
+    <button class="checkout-full-btn" id="checkoutBtn" onclick="openPaymentModal()" style="display:none;">Ödemeye Geç →</button>
+    <button style="width:100%;background:transparent;border:1.5px solid var(--border);border-radius:13px;padding:12px;font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;margin-top:8px;color:var(--muted);" onclick="closeModal('cartModal')">Menüye Dön</button>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">💳 Ödeme</div>
+    <div class="modal-sub">Ödeme yönteminizi seçin</div>
+
+    <div class="payment-section">
+      <div class="pay-sec-title">Ödeme Yöntemi</div>
+      <div class="pay-option selected" id="pay-card" onclick="selectPay('card')">
+        <div class="pay-option-ico">💳</div>
+        <div class="pay-option-label">Kredi / Banka Kartı</div>
+        <div class="pay-radio checked" id="pr-card"></div>
+      </div>
+      <div class="pay-option" id="pay-cash" onclick="selectPay('cash')">
+        <div class="pay-option-ico">💵</div>
+        <div class="pay-option-label">Nakit Ödeme</div>
+        <div class="pay-radio" id="pr-cash"></div>
+      </div>
+      <div class="pay-option" id="pay-digital" onclick="selectPay('digital')">
+        <div class="pay-option-ico">📱</div>
+        <div class="pay-option-label">Dijital Cüzdan (Apple/Google Pay)</div>
+        <div class="pay-radio" id="pr-digital"></div>
+      </div>
+    </div>
+
+    <div id="cardFields" class="payment-section">
+      <div class="pay-sec-title">Kart Bilgileri</div>
+      <div style="margin-bottom:10px;"><input class="input-field" type="text" placeholder="Kart üzerindeki isim" maxlength="40"></div>
+      <div style="margin-bottom:10px;"><input class="input-field" type="text" placeholder="Kart numarası (16 hane)" maxlength="19" oninput="formatCard(this)"></div>
+      <div class="input-row">
+        <input class="input-field" type="text" placeholder="AA/YY" maxlength="5" oninput="formatExpiry(this)">
+        <input class="input-field" type="text" placeholder="CVV" maxlength="3">
+      </div>
+    </div>
+
+    <div class="payment-section">
+      <div class="pay-sec-title">Sipariş Notu (İsteğe bağlı)</div>
+      <textarea class="order-note-input" placeholder="Alerji bilgisi, özel istek..."></textarea>
+    </div>
+
+    <div style="background:var(--warm-gray);border-radius:12px;padding:14px;margin-bottom:6px;">
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:4px;"><span>Ara toplam</span><span id="paySubtotal">₺0</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:4px;"><span>Servis ücreti</span><span>₺0</span></div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;font-size:15px;"><span>Toplam</span><span id="payTotal">₺0</span></div>
+    </div>
+
+    <button class="pay-btn" onclick="processPayment()">✓ Siparişi Onayla</button>
+    <button style="width:100%;background:transparent;border:none;padding:12px;font-family:'Outfit',sans-serif;font-size:13.5px;cursor:pointer;color:var(--muted);" onclick="closeModal('paymentModal')">← Geri</button>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-sheet">
+    <div class="success-modal">
+      <div class="success-anim">✅</div>
+      <div class="success-title">Siparişiniz Alındı!</div>
+      <div class="success-sub">Mutfağımız siparişinizi hazırlamaya başladı. Afiyet olsun!</div>
+      <div class="order-code">
+        <div class="order-code-label">Sipariş Kodu</div>
+        <div class="order-code-val" id="orderCode">CS-0000</div>
+      </div>
+      <div class="eta-row">
+        <div class="eta-box"><div class="eta-ico">🍳</div><div class="eta-label">Tahmini Süre</div><div class="eta-val">20-30 dk</div></div>
+        <div class="eta-box"><div class="eta-ico">📍</div><div class="eta-label">Masa</div><div class="eta-val">14</div></div>
+        <div class="eta-box"><div class="eta-ico">👨‍🍳</div><div class="eta-label">Durum</div><div class="eta-val">Hazırlanıyor</div></div>
+      </div>
+      <button class="done-btn" onclick="finishOrder()">Tamam</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let cart = {}; // { id: { name, emoji, price, qty } }
+let currentFilter = 'all';
+
+// ===== TOGGLE CARD =====
+function toggleCard(id) {
+  const panel = document.getElementById('ep-' + id);
+  const btn = document.getElementById('ebtn-' + id);
+  const isOpen = panel.classList.contains('show');
+  document.querySelectorAll('.expanded-panel').forEach(p => p.classList.remove('show'));
+  document.querySelectorAll('.expand-btn').forEach(b => { b.classList.remove('open'); b.textContent = '+'; });
+  if (!isOpen) { panel.classList.add('show'); btn.classList.add('open'); btn.textContent = '×'; }
+}
+
+// ===== QTY =====
+function changeQty(id, delta) {
+  const el = document.getElementById('qty-' + id);
+  let v = parseInt(el.textContent) + delta;
+  if (v < 1) v = 1;
+  el.textContent = v;
+  const basePrice = getPriceById(id);
+  const priceEl = document.getElementById('abp-' + id);
+  if (priceEl) priceEl.textContent = '₺' + (basePrice * v);
+}
+
+function getPriceById(id) {
+  const prices = {
+    'iki-kahvalti':750,'tek-kahvalti':355,'gozleme':230,'muhlama':230,'pancake':195,
+    'bruschetta':295,'chickyland':320,'fish-chips':375,'peynir-tabagi':420,
+    'cs-corba':160,'aci-eksi':210,
+    'steak-bowl':410,'tavuklu-keci-bowl':345,'summer-bowl':330,
+    'citir-tavuk-salata':335,'izgara-tavuk-salata':335,'kinoa-salata':320,
+    'kepekli-wrap':325,'hellimli-kabak':365,
+    'margherita':295,'ispanyol-sucuklu':410,'vejeteryan-pizza':345,
+    'fettucine-tavuk':355,'spaghetti-bolognese':345,'penne-arrabiata':295,
+    'somon-izgara':595,'naturel-bonfile':625,
+    'izmirli-kofte':420,'smokey-burger':420,'citir-tavuk-burger':325,
+    'izgara-tavuk':385,'mexicana-tavuk':405,
+    'magnolia':195,'brownie':220,'cheesecake':220,
+    'cafe-latte':155,'turk-kahvesi':115,'cafe-frappe':175,
+    'detox-green':180,'homemade-lemonade':165,'bubble-tea':180
+  };
+  return prices[id] || 0;
+}
+
+// ===== ADD TO CART =====
+function addToCart(id, name, emoji, price) {
+  const qty = parseInt(document.getElementById('qty-' + id).textContent);
+  if (cart[id]) {
+    cart[id].qty += qty;
+  } else {
+    cart[id] = { name, emoji, price, qty };
+  }
+  document.getElementById('qty-' + id).textContent = 1;
+  const priceEl = document.getElementById('abp-' + id);
+  if (priceEl) priceEl.textContent = '₺' + price;
+  updateCartUI();
+  showToast('✓ ' + name + ' sepete eklendi');
+}
+
+function updateCartUI() {
+  const totalItems = Object.values(cart).reduce((a, i) => a + i.qty, 0);
+  const totalPrice = Object.values(cart).reduce((a, i) => a + i.price * i.qty, 0);
+  document.getElementById('cartBadge').textContent = totalItems;
+  document.getElementById('cartLabel').textContent = totalItems + ' ürün';
+  document.getElementById('cartTotalLabel').textContent = '₺' + totalPrice;
+  document.getElementById('bottomBar').style.display = totalItems > 0 ? 'flex' : 'none';
+}
+
+// ===== FILTER =====
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters(f, document.getElementById('searchInput').value.toLowerCase());
+  document.getElementById('popularWrap').style.display = f === 'all' ? '' : 'none';
+}
+
+function handleSearch(v) {
+  applyFilters(currentFilter, v.toLowerCase().trim());
+  document.getElementById('popularWrap').style.display = (v.trim() === '' && currentFilter === 'all') ? '' : 'none';
+}
+
+function applyFilters(filter, search) {
+  const cards = document.querySelectorAll('.menu-card');
+  let any = false;
+  cards.forEach(card => {
+    const tags = card.dataset.tags || '';
+    const name = card.querySelector('.card-name').textContent.toLowerCase();
+    const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+    let fMatch = filter === 'all' || tags.includes(filter);
+    let sMatch = !search || name.includes(search) || desc.includes(search);
+    const show = fMatch && sMatch;
+    card.style.display = show ? '' : 'none';
+    if (show) any = true;
+  });
+  document.querySelectorAll('.menu-section').forEach(sec => {
+    const vis = sec.querySelectorAll('.menu-card:not([style*="display: none"])');
+    const header = sec.querySelector('.sec-header');
+    if (header) header.style.display = vis.length === 0 ? 'none' : '';
+  });
+  document.getElementById('noResults').style.display = any ? 'none' : 'block';
+}
+
+// ===== SCROLL =====
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function scrollToCard(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => { el.style.outline = '2px solid var(--red)'; setTimeout(() => el.style.outline = '', 1200); }, 300);
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ===== MODALS =====
+function openCartModal() {
+  renderCartModal();
+  document.getElementById('cartModal').classList.add('show');
+}
+
+function renderCartModal() {
+  const list = document.getElementById('cartItemsList');
+  const totalItems = Object.values(cart).reduce((a, i) => a + i.qty, 0);
+  const totalPrice = Object.values(cart).reduce((a, i) => a + i.price * i.qty, 0);
+  if (totalItems === 0) {
+    list.innerHTML = '<div class="empty-cart">🛒 Sepetiniz boş</div>';
+    document.getElementById('cartTotalRow').style.display = 'none';
+    document.getElementById('checkoutBtn').style.display = 'none';
+    document.getElementById('cartModalSub').textContent = 'Henüz ürün eklemediniz';
+    return;
+  }
+  document.getElementById('cartModalSub').textContent = totalItems + ' ürün · ₺' + totalPrice;
+  document.getElementById('cartModalTotal').textContent = '₺' + totalPrice;
+  document.getElementById('cartTotalRow').style.display = 'flex';
+  document.getElementById('checkoutBtn').style.display = 'block';
+  list.innerHTML = '';
+  Object.entries(cart).forEach(([id, item]) => {
+    const row = document.createElement('div');
+    row.className = 'cart-item-row';
+    row.innerHTML = `<div class="ci-emoji">${item.emoji}</div><div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-price">${item.qty} × ₺${item.price} = ₺${item.price * item.qty}</div></div><button class="ci-remove" onclick="removeFromCart('${id}')">✕</button>`;
+    list.appendChild(row);
+  });
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateCartUI();
+  renderCartModal();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+function openPaymentModal() {
+  const total = Object.values(cart).reduce((a, i) => a + i.price * i.qty, 0);
+  document.getElementById('paySubtotal').textContent = '₺' + total;
+  document.getElementById('payTotal').textContent = '₺' + total;
+  document.getElementById('cartModal').classList.remove('show');
+  document.getElementById('paymentModal').classList.add('show');
+}
+
+function selectPay(method) {
+  ['card','cash','digital'].forEach(m => {
+    document.getElementById('pay-' + m).classList.toggle('selected', m === method);
+    const r = document.getElementById('pr-' + m);
+    r.classList.toggle('checked', m === method);
+    if (m === method) r.innerHTML = ''; else r.innerHTML = '';
+    if (m === method && m !== 'cash') r.classList.add('checked');
+  });
+  document.getElementById('cardFields').style.display = method === 'card' ? 'block' : 'none';
+}
+
+function formatCard(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 2) v = v.substring(0, 2) + '/' + v.substring(2);
+  input.value = v;
+}
+
+function processPayment() {
+  const code = 'CS-' + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById('orderCode').textContent = code;
+  document.getElementById('paymentModal').classList.remove('show');
+  document.getElementById('successModal').classList.add('show');
+}
+
+function finishOrder() {
+  cart = {};
+  updateCartUI();
+  document.getElementById('successModal').classList.remove('show');
+  showToast('🎉 Afiyet olsun!');
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+});
+
+// ============================================================
+// FEATURE 1: INGREDIENT EDITOR — malzeme çıkarınca besin değişimi
+// ============================================================
+const ingredientData = {
+  'steak-bowl': {
+    base: { kcal:560, protein:42, carb:48, fat:16 },
+    ingredients: [
+      { name:'Kuskus', kcal:120, protein:4, carb:24, fat:1 },
+      { name:'Semiz otu', kcal:10, protein:1, carb:1, fat:0 },
+      { name:'Ekşi krema', kcal:60, protein:1, carb:2, fat:6 },
+      { name:'Domates', kcal:20, protein:1, carb:4, fat:0 },
+      { name:'Steak (dana)', kcal:250, protein:32, carb:0, fat:14 },
+      { name:'Zeytinyağı', kcal:80, protein:0, carb:0, fat:9 },
+    ]
+  },
+  'tavuklu-keci-bowl': {
+    base: { kcal:480, protein:38, carb:44, fat:14 },
+    ingredients: [
+      { name:'Kinoa', kcal:90, protein:4, carb:16, fat:1 },
+      { name:'Göbek salata', kcal:10, protein:1, carb:2, fat:0 },
+      { name:'Keçi peyniri', kcal:70, protein:5, carb:0, fat:6 },
+      { name:'Nohut', kcal:80, protein:5, carb:12, fat:2 },
+      { name:'Portakal', kcal:35, protein:1, carb:8, fat:0 },
+      { name:'Izgara tavuk', kcal:180, protein:32, carb:0, fat:5 },
+    ]
+  },
+  'summer-bowl': {
+    base: { kcal:310, protein:12, carb:52, fat:6 },
+    ingredients: [
+      { name:'Brokoli', kcal:35, protein:3, carb:6, fat:0 },
+      { name:'Karnabahar', kcal:25, protein:2, carb:5, fat:0 },
+      { name:'Renkli biberler', kcal:30, protein:1, carb:6, fat:0 },
+      { name:'Koçan mısır', kcal:80, protein:3, carb:17, fat:1 },
+      { name:'Nohut', kcal:80, protein:5, carb:12, fat:2 },
+      { name:'Domates & salatalık', kcal:20, protein:1, carb:4, fat:0 },
+    ]
+  },
+  'fettucine-tavuk': {
+    base: { kcal:620, protein:40, carb:68, fat:22 },
+    ingredients: [
+      { name:'Fettucine makarna', kcal:210, protein:8, carb:40, fat:1 },
+      { name:'Izgara tavuk', kcal:180, protein:30, carb:0, fat:5 },
+      { name:'Krema', kcal:100, protein:1, carb:2, fat:10 },
+      { name:'Parmesan', kcal:60, protein:5, carb:0, fat:4 },
+      { name:'Mantar', kcal:20, protein:2, carb:3, fat:0 },
+      { name:'Renkli biberler', kcal:25, protein:1, carb:5, fat:0 },
+    ]
+  },
+  'ismirli-kofte': {
+    base: { kcal:520, protein:38, carb:48, fat:18 },
+    ingredients: [
+      { name:'Köfte (dana)', kcal:220, protein:28, carb:4, fat:12 },
+      { name:'Özel sos ekmek', kcal:140, protein:4, carb:28, fat:3 },
+      { name:'Közlenmiş patlıcan', kcal:40, protein:1, carb:8, fat:2 },
+      { name:'Salsa sos', kcal:20, protein:0, carb:4, fat:0 },
+    ]
+  },
+  'somon-izgara': {
+    base: { kcal:520, protein:46, carb:38, fat:20 },
+    ingredients: [
+      { name:'Somon (180g)', kcal:300, protein:36, carb:0, fat:16 },
+      { name:'Fırın patates', kcal:120, protein:3, carb:26, fat:1 },
+      { name:'Kuskus salatası', kcal:60, protein:3, carb:10, fat:1 },
+      { name:'Kapari & limon sos', kcal:20, protein:0, carb:2, fat:1 },
+    ]
+  },
+  'magnolia': {
+    base: { kcal:320, protein:7, carb:38, fat:16 },
+    ingredients: [
+      { name:'Magnolia kreması', kcal:160, protein:3, carb:18, fat:10 },
+      { name:'Çilek/Muz', kcal:50, protein:1, carb:12, fat:0 },
+      { name:'Bisküvi kırıntı', kcal:80, protein:1, carb:12, fat:4 },
+      { name:'Fındık/Nutella sos', kcal:60, protein:1, carb:7, fat:4 },
+    ]
+  }
+};
+
+let activeIngredients = {}; // { itemId: Set of removed ingredient names }
+
+function openIngredientEditor(itemId, itemName) {
+  const data = ingredientData[itemId];
+  if (!data) return;
+  if (!activeIngredients[itemId]) activeIngredients[itemId] = new Set();
+  const removed = activeIngredients[itemId];
+
+  let currentNut = { ...data.base };
+  removed.forEach(name => {
+    const ing = data.ingredients.find(i => i.name === name);
+    if (ing) {
+      currentNut.kcal -= ing.kcal;
+      currentNut.protein -= ing.protein;
+      currentNut.carb -= ing.carb;
+      currentNut.fat -= ing.fat;
+    }
+  });
+
+  const ingredientRows = data.ingredients.map(ing => {
+    const isRemoved = removed.has(ing.name);
+    return `<div class="ing-row ${isRemoved ? 'removed' : ''}" id="ing-${itemId}-${ing.name.replace(/\s/g,'_')}">
+      <div class="ing-info">
+        <div class="ing-name">${ing.name}</div>
+        <div class="ing-macros">${ing.kcal} kcal · ${ing.protein}g protein · ${ing.carb}g karb · ${ing.fat}g yağ</div>
+      </div>
+      <button class="ing-toggle ${isRemoved ? 'add' : 'remove'}" onclick="toggleIngredient('${itemId}','${ing.name}')">
+        ${isRemoved ? '+ Ekle' : '− Çıkar'}
+      </button>
+    </div>`;
+  }).join('');
+
+  document.getElementById('ingEditorTitle').textContent = '✏️ ' + itemName;
+  document.getElementById('ingEditorBody').innerHTML = `
+    <div class="ing-nut-summary" id="ing-nut-${itemId}">
+      <div class="ing-nut-item"><span class="ing-nut-val" id="ing-kcal-${itemId}">${currentNut.kcal}</span><span class="ing-nut-lbl">kcal</span></div>
+      <div class="ing-nut-item"><span class="ing-nut-val" id="ing-prot-${itemId}">${currentNut.protein}g</span><span class="ing-nut-lbl">protein</span></div>
+      <div class="ing-nut-item"><span class="ing-nut-val" id="ing-carb-${itemId}">${currentNut.carb}g</span><span class="ing-nut-lbl">karb</span></div>
+      <div class="ing-nut-item"><span class="ing-nut-val" id="ing-fat-${itemId}">${currentNut.fat}g</span><span class="ing-nut-lbl">yağ</span></div>
+    </div>
+    <div class="ing-note">Malzemeleri çıkararak besin değerlerini anlık takip edin</div>
+    <div class="ing-list">${ingredientRows}</div>
+    <div id="ing-diff-${itemId}" class="ing-diff" style="display:none;"></div>
+  `;
+  document.getElementById('ingEditorItemId').value = itemId;
+  document.getElementById('ingEditorModal').classList.add('show');
+}
+
+function toggleIngredient(itemId, ingName) {
+  const data = ingredientData[itemId];
+  if (!data) return;
+  if (!activeIngredients[itemId]) activeIngredients[itemId] = new Set();
+  const removed = activeIngredients[itemId];
+  const ing = data.ingredients.find(i => i.name === ingName);
+  if (!ing) return;
+
+  let adding = removed.has(ingName);
+  if (adding) removed.delete(ingName); else removed.add(ingName);
+
+  // recalc totals
+  let cur = { ...data.base };
+  removed.forEach(name => {
+    const i2 = data.ingredients.find(x => x.name === name);
+    if (i2) { cur.kcal -= i2.kcal; cur.protein -= i2.protein; cur.carb -= i2.carb; cur.fat -= i2.fat; }
+  });
+
+  // animate values
+  animateVal('ing-kcal-' + itemId, cur.kcal, '');
+  animateVal('ing-prot-' + itemId, cur.protein, 'g');
+  animateVal('ing-carb-' + itemId, cur.carb, 'g');
+  animateVal('ing-fat-' + itemId, cur.fat, 'g');
+
+  // diff
+  const diffEl = document.getElementById('ing-diff-' + itemId);
+  const totalRemoved = removed.size;
+  if (totalRemoved > 0) {
+    let removedBase = { kcal:0, protein:0, carb:0, fat:0 };
+    removed.forEach(name => {
+      const i2 = data.ingredients.find(x => x.name === name);
+      if (i2) { removedBase.kcal += i2.kcal; removedBase.protein += i2.protein; removedBase.carb += i2.carb; removedBase.fat += i2.fat; }
+    });
+    diffEl.style.display = 'block';
+    diffEl.innerHTML = `<span>Çıkardıklarınız: <b>−${removedBase.kcal} kcal</b> · −${removedBase.protein}g protein · −${removedBase.carb}g karb · −${removedBase.fat}g yağ</span>`;
+  } else {
+    diffEl.style.display = 'none';
+  }
+
+  // update row style
+  const rowEl = document.getElementById('ing-' + itemId + '-' + ingName.replace(/\s/g,'_'));
+  if (rowEl) {
+    rowEl.classList.toggle('removed', !adding);
+    const btn = rowEl.querySelector('.ing-toggle');
+    if (btn) { btn.textContent = adding ? '− Çıkar' : '+ Ekle'; btn.classList.toggle('add', !adding); btn.classList.toggle('remove', adding); }
+  }
+}
+
+function animateVal(id, val, unit) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('val-changed');
+  el.textContent = val + unit;
+  setTimeout(() => el.classList.remove('val-changed'), 500);
+}
+
+// ============================================================
+// FEATURE 2: WORD FILTER — kelime ekleme / çıkarma
+// ============================================================
+let blockedWords = new Set();
+
+function addBlockedWord() {
+  const input = document.getElementById('wordFilterInput');
+  const word = input.value.trim().toLowerCase();
+  if (!word) return;
+  blockedWords.add(word);
+  input.value = '';
+  renderBlockedWords();
+  applyWordFilter();
+}
+
+function removeBlockedWord(word) {
+  blockedWords.delete(word);
+  renderBlockedWords();
+  applyWordFilter();
+}
+
+function renderBlockedWords() {
+  const container = document.getElementById('blockedWordTags');
+  if (blockedWords.size === 0) {
+    container.innerHTML = '<span style="font-size:12px;color:var(--muted);">Henüz kelime eklenmedi</span>';
+    return;
+  }
+  container.innerHTML = [...blockedWords].map(w =>
+    `<span class="wf-tag">${w} <button onclick="removeBlockedWord('${w}')">×</button></span>`
+  ).join('');
+}
+
+function applyWordFilter() {
+  const cards = document.querySelectorAll('.menu-card');
+  cards.forEach(card => {
+    const name = card.querySelector('.card-name')?.textContent.toLowerCase() || '';
+    const desc = card.querySelector('.card-desc')?.textContent.toLowerCase() || '';
+    const content = name + ' ' + desc;
+    let blocked = false;
+    blockedWords.forEach(w => { if (content.includes(w)) blocked = true; });
+    if (blocked) { card.style.display = 'none'; }
+    else { if (card.style.display === 'none') card.style.display = ''; }
+  });
+  renderBlockedWords();
+}
+
+// ============================================================
+// FEATURE 3: AI CHATBOT — akıllı yemek önerisi
+// ============================================================
+const menuCatalog = [
+  { id:'izgara-tavuk', name:'Izgara Tavuk', emoji:'🍗', kcal:420, protein:46, tags:['fit','protein','gluten-free'], contains:['tavuk'], excludes:['deniz','et'], price:385 },
+  { id:'steak-bowl', name:'Semizotlu Kuskuslu Steak Bowl', emoji:'🥩', kcal:560, protein:42, tags:['bowl','protein','fit'], contains:['et','kuskus'], excludes:['deniz','tavuk'], price:410 },
+  { id:'somon-izgara', name:'Somon Izgara', emoji:'🐟', kcal:520, protein:46, tags:['protein','fit','deniz'], contains:['deniz','balık'], excludes:['et','tavuk'], price:595 },
+  { id:'summer-bowl', name:'Summer Bowl', emoji:'🥦', kcal:310, protein:12, tags:['vegan','fit','gluten-free','düşük kalori'], contains:['sebze'], excludes:['et','tavuk','deniz'], price:330 },
+  { id:'citir-tavuk-salata', name:'Çıtır Tavuk Salatası', emoji:'🥗', kcal:480, protein:34, tags:['salata','tavuk','protein'], contains:['tavuk'], excludes:['deniz','et'], price:335 },
+  { id:'tavuklu-keci-bowl', name:'Tavuklu Keçi Peynirli Bowl', emoji:'🍗', kcal:480, protein:38, tags:['bowl','tavuk','fit'], contains:['tavuk','peynir'], excludes:['deniz'], price:345 },
+  { id:'fettucine-tavuk', name:'Fettucine Tavuk', emoji:'🍝', kcal:620, protein:40, tags:['makarna','tavuk','lezzetli'], contains:['tavuk','gluten','krema'], excludes:['deniz'], price:355 },
+  { id:'mexicana-tavuk', name:'Mexicana Tavuk', emoji:'🌶️', kcal:560, protein:40, tags:['tavuk','acı','lezzetli'], contains:['tavuk'], excludes:['deniz'], price:405 },
+  { id:'naturel-bonfile', name:'Naturel Bonfile', emoji:'🥩', kcal:680, protein:52, tags:['et','protein','premium'], contains:['et'], excludes:['deniz','tavuk'], price:625 },
+  { id:'izmirli-kofte', name:'Islama Köfte', emoji:'🍢', kcal:520, protein:38, tags:['et','köfte','lezzetli'], contains:['et'], excludes:['deniz','tavuk'], price:420 },
+  { id:'penne-arrabiata', name:'Penne Arrabiata', emoji:'🍝', kcal:480, protein:16, tags:['vegan','makarna','acı'], contains:['gluten'], excludes:['et','tavuk','deniz'], price:295 },
+  { id:'kinoa-salata', name:'Kinoa Salatası', emoji:'🌿', kcal:340, protein:14, tags:['vegan','fit','düşük kalori'], contains:['süt'], excludes:['et','tavuk','deniz'], price:320 },
+  { id:'kepekli-wrap', name:'Kepekli Sebzeli Wrap', emoji:'🌯', kcal:390, protein:16, tags:['vegan','fit'], contains:['gluten','sebze'], excludes:['et','tavuk','deniz'], price:325 },
+  { id:'hellimli-kabak', name:'Hellimli Kabak Spaghetti', emoji:'🥒', kcal:420, protein:22, tags:['fit','az-gluten'], contains:['süt','ceviz'], excludes:['et','tavuk','deniz'], price:365 },
+  { id:'smokey-burger', name:'Smokey Burger', emoji:'🍔', kcal:750, protein:46, tags:['et','lezzetli','burger'], contains:['et','gluten','süt'], excludes:['deniz'], price:420 },
+  { id:'margherita', name:'Margherita Pizza', emoji:'🍕', kcal:580, protein:24, tags:['vejetaryen','pizza'], contains:['gluten','süt'], excludes:['et','tavuk','deniz'], price:295 },
+  { id:'magnolia', name:'Magnolia', emoji:'✨', kcal:320, protein:7, tags:['tatlı','imza'], contains:['süt'], excludes:[], price:195 },
+  { id:'brownie', name:'Beyaz Çikolatalı Brownie', emoji:'🍫', kcal:420, protein:8, tags:['tatlı'], contains:['gluten','süt','yumurta'], excludes:[], price:220 },
+  { id:'detox-green', name:'Detox Green', emoji:'🥬', kcal:80, protein:2, tags:['vegan','içecek','fit','detoks'], contains:[], excludes:[], price:180 },
+  { id:'homemade-lemonade', name:'Homemade Lemonade', emoji:'🍋', kcal:95, protein:0, tags:['vegan','içecek'], contains:[], excludes:[], price:165 },
+];
+
+function parseUserMessage(msg) {
+  const m = msg.toLowerCase();
+  const excludes = [];
+  const mustHave = [];
+  const preferences = [];
+
+  // detect exclusions
+  if (m.includes('deniz') || m.includes('balık') || m.includes('somon') || m.includes('levrek')) excludes.push('deniz');
+  if (m.includes('et yemiyorum') || m.includes('et istemiyorum') || m.includes('kırmızı et')) excludes.push('et');
+  if (m.includes('tavuk yemiyorum') || m.includes('tavuk istemiyorum') || m.includes('tavuk sevmiyorum')) excludes.push('tavuk');
+  if (m.includes('glüten') || m.includes('çölyak') || m.includes('buğday')) excludes.push('gluten');
+  if (m.includes('süt') || m.includes('laktoz')) excludes.push('süt');
+  if (m.includes('yumurta yemiyorum') || m.includes('yumurta istemiyorum')) excludes.push('yumurta');
+  if (m.includes('vegan') || m.includes('bitkisel')) { excludes.push('et'); excludes.push('tavuk'); excludes.push('deniz'); mustHave.push('vegan'); }
+
+  // detect preferences
+  if (m.includes('protein') || m.includes('kas') || m.includes('sporcu')) preferences.push('protein');
+  if (m.includes('düşük kalori') || m.includes('diyet') || m.includes('kalori') || m.includes('hafif')) preferences.push('düşük kalori');
+  if (m.includes('açım') || m.includes('aç') || m.includes('çok aç') || m.includes('doyurucu')) preferences.push('doyurucu');
+  if (m.includes('lezzetli') || m.includes('lezzet') || m.includes('tadı güzel') || m.includes('favorim')) preferences.push('lezzetli');
+  if (m.includes('acı') || m.includes('baharatlı')) preferences.push('acı');
+  if (m.includes('deniz') || m.includes('balık') || m.includes('deniz ürünü sev')) mustHave.push('deniz');
+  if (m.includes('fit') || m.includes('sağlıklı')) preferences.push('fit');
+  if (m.includes('tatlı') || m.includes('dessert')) mustHave.push('tatlı');
+  if (m.includes('içecek') || m.includes('içmek')) mustHave.push('içecek');
+  if (m.includes('bowl')) mustHave.push('bowl');
+  if (m.includes('pizza')) mustHave.push('pizza');
+  if (m.includes('makarna') || m.includes('pasta')) mustHave.push('makarna');
+
+  return { excludes, mustHave, preferences };
+}
+
+function getRecommendations(parsed) {
+  let candidates = menuCatalog.filter(item => {
+    // exclude unwanted
+    for (const ex of parsed.excludes) {
+      if (item.contains.includes(ex)) return false;
+      if (item.excludes && !item.excludes.includes(ex)) {} // ok
+    }
+    // must have
+    for (const mh of parsed.mustHave) {
+      if (!item.tags.includes(mh)) return false;
+    }
+    return true;
+  });
+
+  // score
+  candidates = candidates.map(item => {
+    let score = 0;
+    if (parsed.preferences.includes('protein') && item.protein > 30) score += 3;
+    if (parsed.preferences.includes('protein') && item.protein > 40) score += 2;
+    if (parsed.preferences.includes('düşük kalori') && item.kcal < 400) score += 3;
+    if (parsed.preferences.includes('doyurucu') && item.kcal > 450) score += 2;
+    if (parsed.preferences.includes('lezzetli') && item.tags.includes('lezzetli')) score += 3;
+    if (parsed.preferences.includes('fit') && item.tags.includes('fit')) score += 2;
+    if (parsed.preferences.includes('acı') && item.tags.includes('acı')) score += 2;
+    return { ...item, score };
+  }).sort((a, b) => b.score - a.score);
+
+  return candidates.slice(0, 3);
+}
+
+let chatHistory = [];
+
+function sendChatMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  chatHistory.push({ role: 'user', text: msg });
+  renderChat();
+
+  // parse and respond
+  setTimeout(() => {
+    const parsed = parseUserMessage(msg);
+    const recs = getRecommendations(parsed);
+
+    let responseText = '';
+    let recCards = '';
+
+    if (recs.length === 0) {
+      responseText = 'Hmm, kriterlerinize tam uyan bir seçenek bulamadım. Biraz daha esnek olabilir misiniz? 😊';
+    } else {
+      const prefStr = [];
+      if (parsed.excludes.length) prefStr.push(parsed.excludes.map(e => e + ' hariç').join(', '));
+      if (parsed.preferences.includes('protein')) prefStr.push('yüksek protein');
+      if (parsed.preferences.includes('düşük kalori')) prefStr.push('düşük kalori');
+      if (parsed.preferences.includes('doyurucu')) prefStr.push('doyurucu');
+      if (parsed.preferences.includes('lezzetli')) prefStr.push('lezzetli');
+
+      responseText = `Size özel ${recs.length} seçenek buldum${prefStr.length ? ' (' + prefStr.join(', ') + ')' : ''}! 🎯`;
+      recCards = recs.map(item => `
+        <div class="chat-rec-card" onclick="scrollToCard('${item.id}');closeModal('chatModal')">
+          <div class="chat-rec-emoji">${item.emoji}</div>
+          <div class="chat-rec-info">
+            <div class="chat-rec-name">${item.name}</div>
+            <div class="chat-rec-meta">${item.kcal} kcal · ${item.protein}g protein · ₺${item.price}</div>
+          </div>
+          <div class="chat-rec-arrow">→</div>
+        </div>`).join('');
+    }
+
+    chatHistory.push({ role: 'bot', text: responseText, cards: recCards });
+    renderChat();
+  }, 600);
+}
+
+function renderChat() {
+  const container = document.getElementById('chatMessages');
+  container.innerHTML = chatHistory.map(msg => {
+    if (msg.role === 'user') {
+      return `<div class="chat-bubble user">${msg.text}</div>`;
+    } else {
+      return `<div class="chat-bubble bot">${msg.text}</div>${msg.cards ? '<div class="chat-recs">' + msg.cards + '</div>' : ''}`;
+    }
+  }).join('');
+  container.scrollTop = container.scrollHeight;
+}
+
+function openChatModal() {
+  if (chatHistory.length === 0) {
+    chatHistory.push({ role: 'bot', text: 'Merhaba! 👋 Size en uygun yemeği bulmama yardımcı olayım. Tercihinizi yazın — örneğin: "Çok açım, protein ağırlıklı ama deniz ürünü yemiyorum" ya da "Çölyaklıyım ve vegan seçenek istiyorum"' });
+    renderChat();
+  }
+  document.getElementById('chatModal').classList.add('show');
+}
+
+// ============================================================
+// FEATURE 4: PAIRING — ürüne yakışan içecek/yan yemek önerisi
+// ============================================================
+const pairingData = {
+  'default': [
+    { id:'homemade-lemonade', name:'Homemade Lemonade', emoji:'🍋', reason:'Ferahlatıcı ve lezzetli tamamlar' },
+    { id:'detox-green', name:'Detox Green', emoji:'🥬', reason:'Sağlıklı tercihlerinizi destekler' },
+  ],
+  'steak-bowl': [
+    { id:'cafe-latte', name:'Cafe Latte', emoji:'☕', reason:'Et yemeklerine mükemmel eşlik eder' },
+    { id:'homemade-lemonade', name:'Çilekli Limonata', emoji:'🍋', reason:'Asitlik dengesini sağlar' },
+    { id:'brownie', name:'Beyaz Çikolatalı Brownie', emoji:'🍫', reason:'Güçlü bir tatlı finişi!' },
+  ],
+  'somon-izgara': [
+    { id:'detox-green', name:'Detox Green', emoji:'🥬', reason:'Omega-3 ile detoks mükemmel ikili' },
+    { id:'homemade-lemonade', name:'Naneli Limonata', emoji:'🍋', reason:'Balık yemeklerine klasik eşlik' },
+  ],
+  'fettucine-tavuk': [
+    { id:'cafe-latte', name:'Cafe Latte', emoji:'☕', reason:'Kremaya mükemmel uyum' },
+    { id:'magnolia', name:'Magnolia', emoji:'✨', reason:'En çok tercih edilen kombine!' },
+  ],
+  'izgara-tavuk': [
+    { id:'detox-green', name:'Detox Green', emoji:'🥬', reason:'Fit yemekle fit içecek' },
+    { id:'homemade-lemonade', name:'Salatalıklı Limonata', emoji:'🍋', reason:'Hafif ve ferahlatıcı' },
+  ],
+  'smokey-burger': [
+    { id:'cafe-frappe', name:'Cafe Frappe', emoji:'🧊', reason:'Burgere en çok yakışan içecek' },
+    { id:'bubble-tea', name:'Bubble Tea', emoji:'🧋', reason:'Genç ve eğlenceli kombine' },
+  ],
+  'magnolia': [
+    { id:'turk-kahvesi', name:'Türk Kahvesi', emoji:'☕', reason:'Tatlıya Türk kahvesi şart!' },
+    { id:'cafe-latte', name:'Cafe Latte', emoji:'☕', reason:'Magnolia + latte = klasik' },
+  ],
+  'brownie': [
+    { id:'turk-kahvesi', name:'Türk Kahvesi', emoji:'☕', reason:'Çikolata + kahve kombinesi' },
+    { id:'cafe-latte', name:'Cafe Latte', emoji:'☕', reason:'En sevilen ikili' },
+  ],
+  'cheesecake': [
+    { id:'homemade-lemonade', name:'Çilekli Limonata', emoji:'🍋', reason:'Tatlıyı dengeler, ferahlatır' },
+    { id:'cafe-frappe', name:'Cafe Frappe', emoji:'🧊', reason:'Serinletici kombine' },
+  ],
+  'mexicana-tavuk': [
+    { id:'homemade-lemonade', name:'Klasik Limonata', emoji:'🍋', reason:'Acıyı yumuşatır' },
+    { id:'bubble-tea', name:'Bubble Tea', emoji:'🧋', reason:'Meksika temasına uygun' },
+  ],
+};
+
+function showPairings(itemId, itemName) {
+  const pairings = pairingData[itemId] || pairingData['default'];
+  const content = pairings.map(p => `
+    <div class="pair-card" onclick="scrollToCard('${p.id}');closeModal('pairingModal')">
+      <div class="pair-emoji">${p.emoji}</div>
+      <div class="pair-info">
+        <div class="pair-name">${p.name}</div>
+        <div class="pair-reason">${p.reason}</div>
+      </div>
+      <div class="pair-arrow">→</div>
+    </div>`).join('');
+  document.getElementById('pairingTitle').textContent = itemName + ' ile harika gider...';
+  document.getElementById('pairingContent').innerHTML = content;
+  document.getElementById('pairingModal').classList.add('show');
+}
+
+// Patch toggleCard to also show pairings
+const _origToggle = window.toggleCard;
+window.toggleCard = function(id) {
+  _origToggle(id);
+  const panel = document.getElementById('ep-' + id);
+  if (panel && panel.classList.contains('show')) {
+    const card = document.getElementById(id);
+    const itemName = card?.querySelector('.card-name')?.textContent || '';
+    // inject pairing button if not already there
+    const existingPair = panel.querySelector('.pairing-btn-wrap');
+    if (!existingPair) {
+      const hasIngData = !!ingredientData[id];
+      const pairWrap = document.createElement('div');
+      pairWrap.className = 'pairing-btn-wrap';
+      pairWrap.style.cssText = 'display:flex;gap:8px;padding:10px 15px 4px;';
+      if (hasIngData) {
+        pairWrap.innerHTML += `<button class="feature-btn ing-btn" onclick="openIngredientEditor('${id}','${itemName}')">✏️ Malzeme Düzenle</button>`;
+      }
+      pairWrap.innerHTML += `<button class="feature-btn pair-btn" onclick="showPairings('${id}','${itemName}')">🍷 Yakışır mı?</button>`;
+      const firstSection = panel.querySelector('.ep-section');
+      if (firstSection) panel.insertBefore(pairWrap, firstSection);
+    }
+  }
+};
+
+// ============================================================
+// CHAT INPUT — enter key
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const ci = document.getElementById('chatInput');
+  if (ci) ci.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChatMessage(); });
+  const wi = document.getElementById('wordFilterInput');
+  if (wi) wi.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBlockedWord(); });
+  renderBlockedWords();
+});
+
+</script>
+
+<!-- =================== NEW FEATURE STYLES =================== -->
+<style>
+/* FAB buttons */
+.fab-group{position:fixed;right:16px;bottom:90px;display:flex;flex-direction:column;gap:10px;z-index:250;}
+.fab{width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(0,0,0,0.18);transition:.2s;}
+.fab:hover{transform:scale(1.1);}
+.fab-chat{background:var(--dark);color:#fff;}
+.fab-filter{background:var(--red);color:#fff;}
+
+/* FEATURE BUTTONS inside card */
+.feature-btn{flex:1;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:9px 8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;color:var(--dark);}
+.feature-btn:hover{background:var(--warm-gray);}
+.ing-btn{border-color:var(--blue);color:var(--blue);}
+.pair-btn{border-color:var(--orange);color:var(--orange);}
+
+/* INGREDIENT EDITOR MODAL */
+.ing-nut-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
+.ing-nut-item{background:var(--warm-gray);border-radius:10px;padding:8px 6px;text-align:center;}
+.ing-nut-val{display:block;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--dark);transition:color .3s;}
+.ing-nut-val.val-changed{color:var(--red);}
+.ing-nut-lbl{font-size:9px;color:var(--muted);margin-top:2px;display:block;}
+.ing-note{font-size:11px;color:var(--muted);text-align:center;margin-bottom:10px;}
+.ing-list{display:flex;flex-direction:column;gap:7px;}
+.ing-row{display:flex;align-items:center;gap:10px;background:var(--white);border:1.5px solid var(--border);border-radius:11px;padding:10px 12px;transition:.2s;}
+.ing-row.removed{background:#f8f8f8;opacity:0.5;}
+.ing-info{flex:1;}
+.ing-name{font-weight:600;font-size:13px;}
+.ing-macros{font-size:10.5px;color:var(--muted);margin-top:2px;}
+.ing-toggle{padding:5px 12px;border-radius:18px;border:1.5px solid;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Outfit',sans-serif;white-space:nowrap;}
+.ing-toggle.remove{border-color:var(--red);color:var(--red);background:#fff9f9;}
+.ing-toggle.remove:hover{background:var(--red);color:#fff;}
+.ing-toggle.add{border-color:var(--green);color:var(--green);background:#f0faf2;}
+.ing-toggle.add:hover{background:var(--green);color:#fff;}
+.ing-diff{background:#FEF3E8;border:1px solid #F5C890;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--orange);margin-top:10px;}
+
+/* WORD FILTER MODAL */
+.wf-input-row{display:flex;gap:8px;margin-bottom:12px;}
+.wf-input{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:.2s;}
+.wf-input:focus{border-color:var(--red);}
+.wf-add-btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.wf-tags{display:flex;flex-wrap:wrap;gap:6px;min-height:36px;padding:8px;background:var(--warm-gray);border-radius:10px;}
+.wf-tag{background:var(--dark);color:#fff;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px;}
+.wf-tag button{background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:14px;padding:0;line-height:1;}
+.wf-tag button:hover{color:#fff;}
+.wf-hint{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6;}
+
+/* CHATBOT MODAL */
+#chatMessages{min-height:200px;max-height:360px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;padding:4px 2px;}
+.chat-bubble{padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.5;max-width:88%;}
+.chat-bubble.user{background:var(--dark);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.chat-bubble.bot{background:var(--warm-gray);color:var(--dark);align-self:flex-start;border-bottom-left-radius:4px;}
+.chat-recs{display:flex;flex-direction:column;gap:7px;width:100%;}
+.chat-rec-card{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.2s;}
+.chat-rec-card:hover{border-color:var(--red);background:#fff9f9;}
+.chat-rec-emoji{font-size:24px;}
+.chat-rec-info{flex:1;}
+.chat-rec-name{font-weight:600;font-size:13px;}
+.chat-rec-meta{font-size:11px;color:var(--muted);}
+.chat-rec-arrow{color:var(--muted);font-size:16px;}
+.chat-input-row{display:flex;gap:8px;}
+.chat-input{flex:1;border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:13.5px;outline:none;transition:.2s;}
+.chat-input:focus{border-color:var(--red);}
+.chat-send-btn{background:var(--red);color:#fff;border:none;border-radius:12px;padding:11px 16px;font-size:18px;cursor:pointer;transition:.2s;}
+.chat-send-btn:hover{background:var(--red-dark);}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.chat-sug{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);font-size:11.5px;font-weight:500;cursor:pointer;background:#fff;color:var(--dark);transition:.2s;}
+.chat-sug:hover{border-color:var(--red);color:var(--red);}
+
+/* PAIRING MODAL */
+.pair-card{display:flex;align-items:center;gap:12px;background:var(--white);border:1.5px solid var(--border);border-radius:13px;padding:12px 14px;cursor:pointer;margin-bottom:8px;transition:.2s;}
+.pair-card:hover{border-color:var(--orange);background:#fffaf4;}
+.pair-emoji{font-size:28px;}
+.pair-info{flex:1;}
+.pair-name{font-weight:600;font-size:14px;}
+.pair-reason{font-size:11.5px;color:var(--muted);margin-top:2px;}
+.pair-arrow{color:var(--muted);font-size:18px;}
+</style>
+
+<!-- FAB BUTTONS -->
+<div class="fab-group">
+  <button class="fab fab-filter" onclick="document.getElementById('wordFilterModal').classList.add('show')" title="Kelime Filtresi">🚫</button>
+  <button class="fab fab-chat" onclick="openChatModal()" title="Akıllı Öneri">🤖</button>
+</div>
+
+<!-- INGREDIENT EDITOR MODAL -->
+<div class="modal-overlay" id="ingEditorModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="ingEditorTitle">Malzeme Düzenle</div>
+    <div class="modal-sub">Malzemeleri çıkararak besin değerini anlık takip edin</div>
+    <input type="hidden" id="ingEditorItemId">
+    <div id="ingEditorBody"></div>
+    <button style="width:100%;background:transparent;border:1.5px solid var(--border);border-radius:13px;padding:12px;font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;margin-top:14px;color:var(--muted);" onclick="closeModal('ingEditorModal')">Kapat</button>
+  </div>
+</div>
+
+<!-- WORD FILTER MODAL -->
+<div class="modal-overlay" id="wordFilterModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🚫 Kelime Filtresi</div>
+    <div class="modal-sub">İçermesini istemediğiniz malzemeyi yazın — o kelimeyi içeren tüm ürünler menüden kalkar</div>
+    <div class="wf-input-row">
+      <input class="wf-input" id="wordFilterInput" type="text" placeholder="örn: yumurta, fındık, glüten...">
+      <button class="wf-add-btn" onclick="addBlockedWord()">+ Ekle</button>
+    </div>
+    <div class="wf-tags" id="blockedWordTags"></div>
+    <div class="wf-hint">💡 Öneriler: <b>yumurta</b> · <b>fındık</b> · <b>glüten</b> · <b>süt</b> · <b>sucuk</b> · <b>mantar</b> · <b>soğan</b></div>
+    <button style="width:100%;background:var(--dark);color:#fff;border:none;border-radius:13px;padding:13px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;" onclick="closeModal('wordFilterModal')">Filtreyi Uygula ✓</button>
+  </div>
+</div>
+
+<!-- CHATBOT MODAL -->
+<div class="modal-overlay" id="chatModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🤖 Akıllı Öneri</div>
+    <div class="modal-sub">Ne yemek istediğinizi doğal dille anlatın</div>
+    <div class="chat-suggestions">
+      <button class="chat-sug" onclick="quickChat('Çok açım, protein ağırlıklı lezzetli bir şey istiyorum')">💪 Yüksek protein</button>
+      <button class="chat-sug" onclick="quickChat('Vegan seçenekler göster')">🌱 Vegan</button>
+      <button class="chat-sug" onclick="quickChat('Deniz ürünü yemiyorum, et yemiyorum, hafif bir şey istiyorum')">🥗 Hafif</button>
+      <button class="chat-sug" onclick="quickChat('Çölyaklıyım ve tavuk sevmiyorum')">🌾 Glütensiz</button>
+      <button class="chat-sug" onclick="quickChat('Diyet yapıyorum düşük kalorili bir şey istiyorum')">⚡ Düşük kalori</button>
+    </div>
+    <div id="chatMessages"></div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ne yemek istersiniz?">
+      <button class="chat-send-btn" onclick="sendChatMessage()">↑</button>
+    </div>
+    <button style="width:100%;background:transparent;border:none;padding:10px;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;color:var(--muted);margin-top:4px;" onclick="closeModal('chatModal')">Kapat</button>
+  </div>
+</div>
+
+<!-- PAIRING MODAL -->
+<div class="modal-overlay" id="pairingModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="pairingTitle">Yakışır mı?</div>
+    <div class="modal-sub">Bu yemekle harika gidecek seçenekler</div>
+    <div id="pairingContent"></div>
+    <button style="width:100%;background:transparent;border:1.5px solid var(--border);border-radius:13px;padding:12px;font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;margin-top:8px;color:var(--muted);" onclick="closeModal('pairingModal')">Kapat</button>
+  </div>
+</div>
+
+<script>
+function quickChat(text) {
+  document.getElementById('chatInput').value = text;
+  sendChatMessage();
+}
+</script>
+
+</body>
+</html>
