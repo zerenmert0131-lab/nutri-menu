@@ -478,6 +478,96 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('peynir-tabagi',-1)">−</button><div class="qty-num" id="qty-peynir-tabagi">1</div><button class="qty-btn" onclick="changeQty('peynir-tabagi',1)">+</button></div><button class="add-btn" onclick="addToCart('peynir-tabagi','Peynir Tabağı','🧀',420)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-peynir-tabagi">₺420</span></button></div>
       </div>
     </div>
+
+    <div class="menu-card" data-tags="" id="citir-tavuk-sepeti">
+      <div class="card-top" onclick="toggleCard('citir-tavuk-sepeti')">
+        <div class="card-emoji">🍗</div>
+        <div class="card-body">
+          <div class="card-name">Klasik Çıtır Tavuk Sepeti</div>
+          <div class="card-desc">Çıtır pane harçlı tavuk parçaları, patates kızartması, ballı hardal ve barbekü sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺320</span><span class="card-kcal"> · ~920 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-citir-tavuk-sepeti">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-citir-tavuk-sepeti">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">920</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">65g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">58g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🌿 Hardal</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('citir-tavuk-sepeti',-1)">−</button><div class="qty-num" id="qty-citir-tavuk-sepeti">1</div><button class="qty-btn" onclick="changeQty('citir-tavuk-sepeti',1)">+</button></div><button class="add-btn" onclick="addToCart('citir-tavuk-sepeti','Klasik Çıtır Tavuk Sepeti','🍗',320)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-citir-tavuk-sepeti">₺320</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="truflu-patates">
+      <div class="card-top" onclick="toggleCard('truflu-patates')">
+        <div class="card-emoji">🍟</div>
+        <div class="card-body">
+          <div class="card-name">Trüflü ve Parmesanlı Patates Kızartması</div>
+          <div class="card-desc">İnce kesim patates kızartması, beyaz trüf yağı, yıllanmış parmesan, taze frenk soğanı</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺295</span><span class="card-kcal"> · ~640 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-truflu-patates">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-truflu-patates">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">640</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">58g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('truflu-patates',-1)">−</button><div class="qty-num" id="qty-truflu-patates">1</div><button class="qty-btn" onclick="changeQty('truflu-patates',1)">+</button></div><button class="add-btn" onclick="addToCart('truflu-patates','Trüflü ve Parmesanlı Patates Kızartması','🍟',295)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-truflu-patates">₺295</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="firinda-kuskonmaz">
+      <div class="card-top" onclick="toggleCard('firinda-kuskonmaz')">
+        <div class="card-emoji">🥦</div>
+        <div class="card-body">
+          <div class="card-name">Fırınlanmış Kuşkonmaz ve Poşe Yumurta</div>
+          <div class="card-desc">Taze kuşkonmaz, organik poşe yumurta, sızma zeytinyağı, deniz tuzu, parmesan rendesi</div>
+          <div class="tags"><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺265</span><span class="card-kcal"> · ~220 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-firinda-kuskonmaz">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-firinda-kuskonmaz">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">220</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('firinda-kuskonmaz',-1)">−</button><div class="qty-num" id="qty-firinda-kuskonmaz">1</div><button class="qty-btn" onclick="changeQty('firinda-kuskonmaz',1)">+</button></div><button class="add-btn" onclick="addToCart('firinda-kuskonmaz','Fırınlanmış Kuşkonmaz ve Poşe Yumurta','🥦',265)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-firinda-kuskonmaz">₺265</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan" id="edamame">
+      <div class="card-top" onclick="toggleCard('edamame')">
+        <div class="card-emoji">🫘</div>
+        <div class="card-body">
+          <div class="card-name">Buharda Edamame</div>
+          <div class="card-desc">Buharda pişmiş edamame fasulyeleri, deniz tuzu, susam yağı ve pul biber</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺225</span><span class="card-kcal"> · ~180 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-edamame">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-edamame">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">180</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🫘 Soya</span><span class="achip acontains">🌰 Susam</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('edamame',-1)">−</button><div class="qty-num" id="qty-edamame">1</div><button class="qty-btn" onclick="changeQty('edamame',1)">+</button></div><button class="add-btn" onclick="addToCart('edamame','Buharda Edamame','🫘',225)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-edamame">₺225</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="citir-kalamar">
+      <div class="card-top" onclick="toggleCard('citir-kalamar')">
+        <div class="card-emoji">🦑</div>
+        <div class="card-body">
+          <div class="card-name">Çıtır Kalamar Tava</div>
+          <div class="card-desc">Galeta ununa bulanmış altın sarısı kalamar halkaları, ev yapımı tartar sos ile</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺345</span><span class="card-kcal"> · ~580 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-citir-kalamar">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-citir-kalamar">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">580</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">45g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">36g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🦐 Deniz Ürünü</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('citir-kalamar',-1)">−</button><div class="qty-num" id="qty-citir-kalamar">1</div><button class="qty-btn" onclick="changeQty('citir-kalamar',1)">+</button></div><button class="add-btn" onclick="addToCart('citir-kalamar','Çıtır Kalamar Tava','🦑',345)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-citir-kalamar">₺345</span></button></div>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
@@ -582,6 +672,60 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('summer-bowl',-1)">−</button><div class="qty-num" id="qty-summer-bowl">1</div><button class="qty-btn" onclick="changeQty('summer-bowl',1)">+</button></div><button class="add-btn" onclick="addToCart('summer-bowl','Summer Bowl','🥦',330)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-summer-bowl">₺330</span></button></div>
       </div>
     </div>
+
+    <div class="menu-card" data-tags="bowl vegan fit" id="green-power-bowl">
+      <div class="card-top" onclick="toggleCard('green-power-bowl')">
+        <div class="card-emoji">🥬</div>
+        <div class="card-body">
+          <div class="card-name">Green Power Protein Kasesi</div>
+          <div class="card-desc">Organik tofu, edamame fasulyesi, kinoa, avokado, susamlı tamari sosu, fırınlanmış brokoli</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺355</span><span class="card-kcal"> · ~510 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-green-power-bowl">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-green-power-bowl">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">510</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🫘 Soya</span><span class="achip acontains">🌰 Susam</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('green-power-bowl',-1)">−</button><div class="qty-num" id="qty-green-power-bowl">1</div><button class="qty-btn" onclick="changeQty('green-power-bowl',1)">+</button></div><button class="add-btn" onclick="addToCart('green-power-bowl','Green Power Protein Kasesi','🥬',355)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-green-power-bowl">₺355</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="bowl" id="hawaii-poke-bowl">
+      <div class="card-top" onclick="toggleCard('hawaii-poke-bowl')">
+        <div class="card-emoji">🐟</div>
+        <div class="card-body">
+          <div class="card-name">Hawai Somon Poke Bowl</div>
+          <div class="card-desc">Çiğ somon küpleri, suşi pirinci, mango, edamame, wakame yosunu, ponzu sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺445</span><span class="card-kcal"> · ~680 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-hawaii-poke-bowl">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-hawaii-poke-bowl">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">680</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">32g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">75g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🐟 Balık</span><span class="achip acontains">🫘 Soya</span><span class="achip acontains">🌰 Susam</span><span class="achip acontains">🌾 Glüten</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('hawaii-poke-bowl',-1)">−</button><div class="qty-num" id="qty-hawaii-poke-bowl">1</div><button class="qty-btn" onclick="changeQty('hawaii-poke-bowl',1)">+</button></div><button class="add-btn" onclick="addToCart('hawaii-poke-bowl','Hawai Somon Poke Bowl','🐟',445)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-hawaii-poke-bowl">₺445</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="bowl vegan" id="falafel-kasesi">
+      <div class="card-top" onclick="toggleCard('falafel-kasesi')">
+        <div class="card-emoji">🧆</div>
+        <div class="card-body">
+          <div class="card-name">Fırınlanmış Falafel Kasesi</div>
+          <div class="card-desc">Nohut ve taze yeşilliklerden fırın falafel, humus, tabbouleh salatası, tahin sos</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺340</span><span class="card-kcal"> · ~540 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-falafel-kasesi">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-falafel-kasesi">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">540</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">58g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌰 Susam (Tahin)</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('falafel-kasesi',-1)">−</button><div class="qty-num" id="qty-falafel-kasesi">1</div><button class="qty-btn" onclick="changeQty('falafel-kasesi',1)">+</button></div><button class="add-btn" onclick="addToCart('falafel-kasesi','Fırınlanmış Falafel Kasesi','🧆',340)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-falafel-kasesi">₺340</span></button></div>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
@@ -641,6 +785,42 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">340</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">46g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">10g</div><div class="nut-label">Yağ</div></div></div></div>
         <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip afree">✓ Glüten Yok</span><span class="achip afree">✓ Et Yok</span></div></div>
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('kinoa-salata',-1)">−</button><div class="qty-num" id="qty-kinoa-salata">1</div><button class="qty-btn" onclick="changeQty('kinoa-salata',1)">+</button></div><button class="add-btn" onclick="addToCart('kinoa-salata','Kinoa Salatası','🌿',320)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-kinoa-salata">₺320</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="sezar-salata">
+      <div class="card-top" onclick="toggleCard('sezar-salata')">
+        <div class="card-emoji">🥗</div>
+        <div class="card-body">
+          <div class="card-name">Orijinal Sezar Salata</div>
+          <div class="card-desc">Izgara tavuk dilimleri, marul, kruton ekmek, parmesan ve ançüezli klasik sezar sos</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺355</span><span class="card-kcal"> · ~610 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-sezar-salata">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-sezar-salata">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">610</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">30g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">45g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🐟 Balık (Ançüez)</span><span class="achip acontains">🥚 Yumurta</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('sezar-salata',-1)">−</button><div class="qty-num" id="qty-sezar-salata">1</div><button class="qty-btn" onclick="changeQty('sezar-salata',1)">+</button></div><button class="add-btn" onclick="addToCart('sezar-salata','Orijinal Sezar Salata','🥗',355)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-sezar-salata">₺355</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="hellim-pancar-salata">
+      <div class="card-top" onclick="toggleCard('hellim-pancar-salata')">
+        <div class="card-emoji">🧀</div>
+        <div class="card-body">
+          <div class="card-name">Izgara Hellim ve Pancar Salatası</div>
+          <div class="card-desc">Izgara hellim dilimleri, fırınlanmış kırmızı pancar, ceviz, roka, balzamik sirke</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺360</span><span class="card-kcal"> · ~490 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-hellim-pancar-salata">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-hellim-pancar-salata">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">490</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">35g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌰 Kuruyemiş</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('hellim-pancar-salata',-1)">−</button><div class="qty-num" id="qty-hellim-pancar-salata">1</div><button class="qty-btn" onclick="changeQty('hellim-pancar-salata',1)">+</button></div><button class="add-btn" onclick="addToCart('hellim-pancar-salata','Izgara Hellim ve Pancar Salatası','🧀',360)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-hellim-pancar-salata">₺360</span></button></div>
       </div>
     </div>
   </div>
@@ -808,6 +988,96 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('penne-arrabiata',-1)">−</button><div class="qty-num" id="qty-penne-arrabiata">1</div><button class="qty-btn" onclick="changeQty('penne-arrabiata',1)">+</button></div><button class="add-btn" onclick="addToCart('penne-arrabiata','Penne Arrabiata','🍝',295)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-penne-arrabiata">₺295</span></button></div>
       </div>
     </div>
+
+    <div class="menu-card" data-tags="" id="fettuccine-alfredo">
+      <div class="card-top" onclick="toggleCard('fettuccine-alfredo')">
+        <div class="card-emoji">🍝</div>
+        <div class="card-body">
+          <div class="card-name">Fettuccine Alfredo</div>
+          <div class="card-desc">Özel krema sosu, sote tavuk parçaları, mantar, sarımsak ve yoğun parmesan</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺385</span><span class="card-kcal"> · ~1050 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-fettuccine-alfredo">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-fettuccine-alfredo">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">1050</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">85g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">65g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('fettuccine-alfredo',-1)">−</button><div class="qty-num" id="qty-fettuccine-alfredo">1</div><button class="qty-btn" onclick="changeQty('fettuccine-alfredo',1)">+</button></div><button class="add-btn" onclick="addToCart('fettuccine-alfredo','Fettuccine Alfredo','🍝',385)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-fettuccine-alfredo">₺385</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="geleneksel-bolognese">
+      <div class="card-top" onclick="toggleCard('geleneksel-bolognese')">
+        <div class="card-emoji">🍝</div>
+        <div class="card-body">
+          <div class="card-name">Geleneksel Spaghetti Bolognese</div>
+          <div class="card-desc">Ağır ateşte pişmiş dana kıymalı domates sosu, spagetti, taze fesleğen ve parmesan</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺360</span><span class="card-kcal"> · ~780 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-geleneksel-bolognese">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-geleneksel-bolognese">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">780</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">34g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">92g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">30g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('geleneksel-bolognese',-1)">−</button><div class="qty-num" id="qty-geleneksel-bolognese">1</div><button class="qty-btn" onclick="changeQty('geleneksel-bolognese',1)">+</button></div><button class="add-btn" onclick="addToCart('geleneksel-bolognese','Geleneksel Spaghetti Bolognese','🍝',360)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-geleneksel-bolognese">₺360</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="karabugday-risotto">
+      <div class="card-top" onclick="toggleCard('karabugday-risotto')">
+        <div class="card-emoji">🍚</div>
+        <div class="card-body">
+          <div class="card-name">Zengin Lifli Karabuğday Risotto</div>
+          <div class="card-desc">Karabuğday, kestane mantarı, beyaz trüf yağı, parmesan peyniri, tavuk suyu</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺375</span><span class="card-kcal"> · ~590 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-karabugday-risotto">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-karabugday-risotto">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">590</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">45g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">35g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Kereviz</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('karabugday-risotto',-1)">−</button><div class="qty-num" id="qty-karabugday-risotto">1</div><button class="qty-btn" onclick="changeQty('karabugday-risotto',1)">+</button></div><button class="add-btn" onclick="addToCart('karabugday-risotto','Zengin Lifli Karabuğday Risotto','🍚',375)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-karabugday-risotto">₺375</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan gluten" id="kabak-spagetti-zoodle">
+      <div class="card-top" onclick="toggleCard('kabak-spagetti-zoodle')">
+        <div class="card-emoji">🥒</div>
+        <div class="card-body">
+          <div class="card-name">Vegan Kabak Spagetti (Zoodles)</div>
+          <div class="card-desc">Kabak şeritleri, kaju kremalı pesto sos, çeri domates ve kavrulmuş çam fıstığı</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tv">🌾 Glütensiz</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺335</span><span class="card-kcal"> · ~320 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-kabak-spagetti-zoodle">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-kabak-spagetti-zoodle">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">320</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌰 Kuruyemiş (Kaju, Çam Fıstığı)</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('kabak-spagetti-zoodle',-1)">−</button><div class="qty-num" id="qty-kabak-spagetti-zoodle">1</div><button class="qty-btn" onclick="changeQty('kabak-spagetti-zoodle',1)">+</button></div><button class="add-btn" onclick="addToCart('kabak-spagetti-zoodle','Vegan Kabak Spagetti (Zoodles)','🥒',335)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-kabak-spagetti-zoodle">₺335</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="deniz-mahsulu-linguine">
+      <div class="card-top" onclick="toggleCard('deniz-mahsulu-linguine')">
+        <div class="card-emoji">🦐</div>
+        <div class="card-body">
+          <div class="card-name">Deniz Mahsüllü Linguine</div>
+          <div class="card-desc">Karides, midye, kalamar, hafif acılı sarımsaklı domates sosu, beyaz şarap ile çektirilmiş</div>
+          <div class="tags"><span class="tag tr">🌶️ Hafif Acı</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺450</span><span class="card-kcal"> · ~640 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-deniz-mahsulu-linguine">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-deniz-mahsulu-linguine">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">640</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">36g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">78g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">18g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🦐 Deniz Ürünü</span><span class="achip acontains">🌾 Glüten</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('deniz-mahsulu-linguine',-1)">−</button><div class="qty-num" id="qty-deniz-mahsulu-linguine">1</div><button class="qty-btn" onclick="changeQty('deniz-mahsulu-linguine',1)">+</button></div><button class="add-btn" onclick="addToCart('deniz-mahsulu-linguine','Deniz Mahsüllü Linguine','🦐',450)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-deniz-mahsulu-linguine">₺450</span></button></div>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
@@ -831,6 +1101,42 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">520</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">46g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
         <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🐟 Balık</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🧂 Hardal</span></div></div>
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('somon-izgara',-1)">−</button><div class="qty-num" id="qty-somon-izgara">1</div><button class="qty-btn" onclick="changeQty('somon-izgara',1)">+</button></div><button class="add-btn" onclick="addToCart('somon-izgara','Somon Izgara','🐟',595)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-somon-izgara">₺595</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="fit" id="norvec-somonu">
+      <div class="card-top" onclick="toggleCard('norvec-somonu')">
+        <div class="card-emoji">🐟</div>
+        <div class="card-body">
+          <div class="card-name">Fırınlanmış Norveç Somonu</div>
+          <div class="card-desc">Norveç somon fileto, kuşkonmaz, siyez bulguru, hollandez sos (tereyağı bazlı)</div>
+          <div class="tags"><span class="tag tf">💪 Protein</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺595</span><span class="card-kcal"> · ~680 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-norvec-somonu">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-norvec-somonu">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">680</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">35g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">44g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🐟 Balık</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('norvec-somonu',-1)">−</button><div class="qty-num" id="qty-norvec-somonu">1</div><button class="qty-btn" onclick="changeQty('norvec-somonu',1)">+</button></div><button class="add-btn" onclick="addToCart('norvec-somonu','Fırınlanmış Norveç Somonu','🐟',595)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-norvec-somonu">₺595</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan fit gluten" id="karnabahar-biftek">
+      <div class="card-top" onclick="toggleCard('karnabahar-biftek')">
+        <div class="card-emoji">🥦</div>
+        <div class="card-body">
+          <div class="card-name">Baharatlı Karnabahar Bifteği</div>
+          <div class="card-desc">Fırınlanmış kalın karnabahar dilimi, tahinli pekmez glazür, taze nane ve nar taneleri</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tv">🌾 Glütensiz</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺295</span><span class="card-kcal"> · ~280 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-karnabahar-biftek">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-karnabahar-biftek">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">280</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">35g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">14g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌰 Susam</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('karnabahar-biftek',-1)">−</button><div class="qty-num" id="qty-karnabahar-biftek">1</div><button class="qty-btn" onclick="changeQty('karnabahar-biftek',1)">+</button></div><button class="add-btn" onclick="addToCart('karnabahar-biftek','Baharatlı Karnabahar Bifteği','🥦',295)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-karnabahar-biftek">₺295</span></button></div>
       </div>
     </div>
   </div>
@@ -919,6 +1225,60 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('citir-tavuk-burger',-1)">−</button><div class="qty-num" id="qty-citir-tavuk-burger">1</div><button class="qty-btn" onclick="changeQty('citir-tavuk-burger',1)">+</button></div><button class="add-btn" onclick="addToCart('citir-tavuk-burger','Çıtır Tavuk Burger','🍔',325)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-citir-tavuk-burger">₺325</span></button></div>
       </div>
     </div>
+
+    <div class="menu-card" data-tags="" id="bistro-cheeseburger">
+      <div class="card-top" onclick="toggleCard('bistro-cheeseburger')">
+        <div class="card-emoji">🍔</div>
+        <div class="card-body">
+          <div class="card-name">Bistro Klasik Cheeseburger</div>
+          <div class="card-desc">200gr dana burger köftesi, cheddar peyniri, karamelize soğan, brioche ekmeği ve patates kızartması</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺440</span><span class="card-kcal"> · ~880 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-bistro-cheeseburger">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-bistro-cheeseburger">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">880</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">45g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">55g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">54g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🌰 Susam</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('bistro-cheeseburger',-1)">−</button><div class="qty-num" id="qty-bistro-cheeseburger">1</div><button class="qty-btn" onclick="changeQty('bistro-cheeseburger',1)">+</button></div><button class="add-btn" onclick="addToCart('bistro-cheeseburger','Bistro Klasik Cheeseburger','🍔',440)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-bistro-cheeseburger">₺440</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="bbq-dana-kaburga">
+      <div class="card-top" onclick="toggleCard('bbq-dana-kaburga')">
+        <div class="card-emoji">🥩</div>
+        <div class="card-body">
+          <div class="card-name">Barbekü Soslu Dana Kaburga</div>
+          <div class="card-desc">8 saat ağır ateşte pişmiş dana kaburga, ev yapımı barbekü sos, kremalı patates püresi</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺695</span><span class="card-kcal"> · ~1150 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-bbq-dana-kaburga">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-bbq-dana-kaburga">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">1150</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">58g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">65g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">72g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Hardal</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('bbq-dana-kaburga',-1)">−</button><div class="qty-num" id="qty-bbq-dana-kaburga">1</div><button class="qty-btn" onclick="changeQty('bbq-dana-kaburga',1)">+</button></div><button class="add-btn" onclick="addToCart('bbq-dana-kaburga','Barbekü Soslu Dana Kaburga','🥩',695)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-bbq-dana-kaburga">₺695</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan" id="seitan-burger">
+      <div class="card-top" onclick="toggleCard('seitan-burger')">
+        <div class="card-emoji">🌿</div>
+        <div class="card-body">
+          <div class="card-name">Akdeniz Esintili Seitan Burger</div>
+          <div class="card-desc">Buğday proteini köftesi, kaju kreması, trüf yağlı fırın patates, glutensiz ekmek</div>
+          <div class="tags"><span class="tag tv">🌱 Bitkisel</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺390</span><span class="card-kcal"> · ~720 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-seitan-burger">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-seitan-burger">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">720</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">68g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten (Seitan)</span><span class="achip acontains">🌰 Kuruyemiş (Kaju)</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('seitan-burger',-1)">−</button><div class="qty-num" id="qty-seitan-burger">1</div><button class="qty-btn" onclick="changeQty('seitan-burger',1)">+</button></div><button class="add-btn" onclick="addToCart('seitan-burger','Akdeniz Esintili Seitan Burger','🌿',390)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-seitan-burger">₺390</span></button></div>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
@@ -960,6 +1320,24 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">560</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">40g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">44g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">22g</div><div class="nut-label">Yağ</div></div></div></div>
         <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Kereviz</span></div></div>
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('mexicana-tavuk',-1)">−</button><div class="qty-num" id="qty-mexicana-tavuk">1</div><button class="qty-btn" onclick="changeQty('mexicana-tavuk',1)">+</button></div><button class="add-btn" onclick="addToCart('mexicana-tavuk','Mexicana Tavuk','🌶️',405)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-mexicana-tavuk">₺405</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="viyana-schnitzel">
+      <div class="card-top" onclick="toggleCard('viyana-schnitzel')">
+        <div class="card-emoji">🍗</div>
+        <div class="card-body">
+          <div class="card-name">Viyana Usulü Tavuk Şnitzel</div>
+          <div class="card-desc">Tereyağında kızartılmış ince dövülmüş tavuk göğsü, hardallı patates salatası ile</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺420</span><span class="card-kcal"> · ~820 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-viyana-schnitzel">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-viyana-schnitzel">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">820</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">62g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">44g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌿 Hardal</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('viyana-schnitzel',-1)">−</button><div class="qty-num" id="qty-viyana-schnitzel">1</div><button class="qty-btn" onclick="changeQty('viyana-schnitzel',1)">+</button></div><button class="add-btn" onclick="addToCart('viyana-schnitzel','Viyana Usulü Tavuk Şnitzel','🍗',420)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-viyana-schnitzel">₺420</span></button></div>
       </div>
     </div>
   </div>
@@ -1021,6 +1399,114 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">380</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">42g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">20g</div><div class="nut-label">Yağ</div></div></div></div>
         <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥚 Yumurta</span></div></div>
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('cheesecake',-1)">−</button><div class="qty-num" id="qty-cheesecake">1</div><button class="qty-btn" onclick="changeQty('cheesecake',1)">+</button></div><button class="add-btn" onclick="addToCart('cheesecake','Frambuazlı Cheesecake','🍰',220)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-cheesecake">₺220</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="tiramisu">
+      <div class="card-top" onclick="toggleCard('tiramisu')">
+        <div class="card-emoji">☕</div>
+        <div class="card-body">
+          <div class="card-name">Orijinal İtalyan Tiramisu</div>
+          <div class="card-desc">Mascarpone peyniri, savoiardi bisküvisi, taze demlenmiş espresso, kakao tozu</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺265</span><span class="card-kcal"> · ~620 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-tiramisu">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-tiramisu">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">620</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">12g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">58g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('tiramisu',-1)">−</button><div class="qty-num" id="qty-tiramisu">1</div><button class="qty-btn" onclick="changeQty('tiramisu',1)">+</button></div><button class="add-btn" onclick="addToCart('tiramisu','Orijinal İtalyan Tiramisu','☕',265)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-tiramisu">₺265</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="panna-cotta">
+      <div class="card-top" onclick="toggleCard('panna-cotta')">
+        <div class="card-emoji">🍮</div>
+        <div class="card-body">
+          <div class="card-name">Klasik İtalyan Panna Cotta</div>
+          <div class="card-desc">Taze vanilya çubuğu ile tatlandırılmış süt kreması, orman meyvesi sosu</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺245</span><span class="card-kcal"> · ~495 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-panna-cotta">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-panna-cotta">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">495</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">5g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">40g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">35g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('panna-cotta',-1)">−</button><div class="qty-num" id="qty-panna-cotta">1</div><button class="qty-btn" onclick="changeQty('panna-cotta',1)">+</button></div><button class="add-btn" onclick="addToCart('panna-cotta','Klasik İtalyan Panna Cotta','🍮',245)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-panna-cotta">₺245</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="mini-limonlu-kek">
+      <div class="card-top" onclick="toggleCard('mini-limonlu-kek')">
+        <div class="card-emoji">🍋</div>
+        <div class="card-body">
+          <div class="card-name">Paylaşımlık Mini Limonlu Kekler</div>
+          <div class="card-desc">Taze limon kabuğu rendesiyle hazırlanmış, beyaz çikolata kaplı minyatür porsiyon kekler</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺235</span><span class="card-kcal"> · ~460 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-mini-limonlu-kek">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-mini-limonlu-kek">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">460</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">6g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">55g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('mini-limonlu-kek',-1)">−</button><div class="qty-num" id="qty-mini-limonlu-kek">1</div><button class="qty-btn" onclick="changeQty('mini-limonlu-kek',1)">+</button></div><button class="add-btn" onclick="addToCart('mini-limonlu-kek','Paylaşımlık Mini Limonlu Kekler','🍋',235)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-mini-limonlu-kek">₺235</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="" id="ny-cheesecake">
+      <div class="card-top" onclick="toggleCard('ny-cheesecake')">
+        <div class="card-emoji">🍰</div>
+        <div class="card-body">
+          <div class="card-name">New York Style Cheesecake</div>
+          <div class="card-desc">Kıtır bisküvi tabanı, yoğun krem peynir dolgusu, frambuaz sos</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺255</span><span class="card-kcal"> · ~710 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-ny-cheesecake">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-ny-cheesecake">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">710</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">10g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">62g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">48g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌾 Glüten</span><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🥚 Yumurta</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('ny-cheesecake',-1)">−</button><div class="qty-num" id="qty-ny-cheesecake">1</div><button class="qty-btn" onclick="changeQty('ny-cheesecake',1)">+</button></div><button class="add-btn" onclick="addToCart('ny-cheesecake','New York Style Cheesecake','🍰',255)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-ny-cheesecake">₺255</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan gluten" id="vegan-bitter-brownie">
+      <div class="card-top" onclick="toggleCard('vegan-bitter-brownie')">
+        <div class="card-emoji">🍫</div>
+        <div class="card-body">
+          <div class="card-name">Glutensiz & Vegan Bitter Brownie</div>
+          <div class="card-desc">Badem unu, %80 kakao oranlı bitter çikolata, ceviz parçaları, fıstık ezmesi dolgusu</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tv">🌾 Glutensiz</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺235</span><span class="card-kcal"> · ~420 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-vegan-bitter-brownie">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-vegan-bitter-brownie">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">420</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">9g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌰 Kuruyemiş (Badem, Ceviz, Yer Fıstığı)</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('vegan-bitter-brownie',-1)">−</button><div class="qty-num" id="qty-vegan-bitter-brownie">1</div><button class="qty-btn" onclick="changeQty('vegan-bitter-brownie',1)">+</button></div><button class="add-btn" onclick="addToCart('vegan-bitter-brownie','Glutensiz & Vegan Bitter Brownie','🍫',235)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-vegan-bitter-brownie">₺235</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="vegan fit" id="fit-kase-tiramisu">
+      <div class="card-top" onclick="toggleCard('fit-kase-tiramisu')">
+        <div class="card-emoji">🥣</div>
+        <div class="card-body">
+          <div class="card-name">Guilt-Free Fit Kase Tiramisu</div>
+          <div class="card-desc">Kaju kreması, yulaf tabanı, espresso, ham kakao, hindistan cevizi yağı, agave</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Fit</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺255</span><span class="card-kcal"> · ~450 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-fit-kase-tiramisu">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-fit-kase-tiramisu">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">450</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">48g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">26g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🌰 Kuruyemiş (Kaju)</span><span class="achip acontains">🌾 Glüten (Yulaf)</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('fit-kase-tiramisu',-1)">−</button><div class="qty-num" id="qty-fit-kase-tiramisu">1</div><button class="qty-btn" onclick="changeQty('fit-kase-tiramisu',1)">+</button></div><button class="add-btn" onclick="addToCart('fit-kase-tiramisu','Guilt-Free Fit Kase Tiramisu','🥣',255)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-fit-kase-tiramisu">₺255</span></button></div>
       </div>
     </div>
   </div>
@@ -1142,6 +1628,96 @@ body{font-family:'Outfit',sans-serif;background:var(--off-white);color:var(--tex
         <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">160</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">1g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">38g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
         <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
         <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('bubble-tea',-1)">−</button><div class="qty-num" id="qty-bubble-tea">1</div><button class="qty-btn" onclick="changeQty('bubble-tea',1)">+</button></div><button class="add-btn" onclick="addToCart('bubble-tea','Bubble Tea','🧋',180)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-bubble-tea">₺180</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink" id="cilek-milkshake">
+      <div class="card-top" onclick="toggleCard('cilek-milkshake')">
+        <div class="card-emoji">🍓</div>
+        <div class="card-body">
+          <div class="card-name">Çilekli Klasik Milkshake</div>
+          <div class="card-desc">Tam yağlı dondurma, çilek püresi, krema, çikolata parçacıkları</div>
+          <div class="tags"></div>
+          <div class="card-bottom"><div><span class="card-price">₺195</span><span class="card-kcal"> · ~520 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-cilek-milkshake">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-cilek-milkshake">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">520</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">68g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">24g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span><span class="achip acontains">🫘 Soya (Çikolata)</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('cilek-milkshake',-1)">−</button><div class="qty-num" id="qty-cilek-milkshake">1</div><button class="qty-btn" onclick="changeQty('cilek-milkshake',1)">+</button></div><button class="add-btn" onclick="addToCart('cilek-milkshake','Çilekli Klasik Milkshake','🍓',195)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-cilek-milkshake">₺195</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink" id="buzlu-karamel-macchiato">
+      <div class="card-top" onclick="toggleCard('buzlu-karamel-macchiato')">
+        <div class="card-emoji">🧊</div>
+        <div class="card-body">
+          <div class="card-name">Buzlu Karamel Macchiato</div>
+          <div class="card-desc">Çift shot espresso, tam yağlı süt, yoğun karamel şurubu, çırpılmış krema</div>
+          <div class="tags"><span class="tag tp">🔥 Popüler</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺185</span><span class="card-kcal"> · ~380 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-buzlu-karamel-macchiato">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-buzlu-karamel-macchiato">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">380</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">8g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">52g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">16g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip acontains">🥛 Süt Ürünü</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('buzlu-karamel-macchiato',-1)">−</button><div class="qty-num" id="qty-buzlu-karamel-macchiato">1</div><button class="qty-btn" onclick="changeQty('buzlu-karamel-macchiato',1)">+</button></div><button class="add-btn" onclick="addToCart('buzlu-karamel-macchiato','Buzlu Karamel Macchiato','🧊',185)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-buzlu-karamel-macchiato">₺185</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink vegan" id="detox-green-juice">
+      <div class="card-top" onclick="toggleCard('detox-green-juice')">
+        <div class="card-emoji">🥦</div>
+        <div class="card-body">
+          <div class="card-name">Detox Green Juice</div>
+          <div class="card-desc">Elma, ıspanak, kereviz, taze zencefil, limon suyu — Şekersiz</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Detoks</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺175</span><span class="card-kcal"> · ~120 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-detox-green-juice">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-detox-green-juice">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">120</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">2g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">28g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('detox-green-juice',-1)">−</button><div class="qty-num" id="qty-detox-green-juice">1</div><button class="qty-btn" onclick="changeQty('detox-green-juice',1)">+</button></div><button class="add-btn" onclick="addToCart('detox-green-juice','Detox Green Juice','🥦',175)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-detox-green-juice">₺175</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink vegan" id="zencefilli-kombucha">
+      <div class="card-top" onclick="toggleCard('zencefilli-kombucha')">
+        <div class="card-emoji">🍵</div>
+        <div class="card-body">
+          <div class="card-name">Taze Zencefilli Kombucha</div>
+          <div class="card-desc">Ev yapımı fermente çay, taze zencefil, limon</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span><span class="tag tf">💪 Detoks</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺165</span><span class="card-kcal"> · ~45 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-zencefilli-kombucha">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-zencefilli-kombucha">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">45</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">10g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('zencefilli-kombucha',-1)">−</button><div class="qty-num" id="qty-zencefilli-kombucha">1</div><button class="qty-btn" onclick="changeQty('zencefilli-kombucha',1)">+</button></div><button class="add-btn" onclick="addToCart('zencefilli-kombucha','Taze Zencefilli Kombucha','🍵',165)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-zencefilli-kombucha">₺165</span></button></div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-tags="drink vegan" id="portakal-suyu">
+      <div class="card-top" onclick="toggleCard('portakal-suyu')">
+        <div class="card-emoji">🍊</div>
+        <div class="card-body">
+          <div class="card-name">Taze Sıkım Portakal Suyu</div>
+          <div class="card-desc">%100 taze sıkım portakal suyu</div>
+          <div class="tags"><span class="tag tv">🌱 Vegan</span></div>
+          <div class="card-bottom"><div><span class="card-price">₺155</span><span class="card-kcal"> · ~210 kcal</span></div></div>
+        </div>
+        <button class="expand-btn" id="ebtn-portakal-suyu">+</button>
+      </div>
+      <div class="expanded-panel" id="ep-portakal-suyu">
+        <div class="ep-section"><div class="ep-label">🔬 Besin Değerleri</div><div class="nut-grid"><div class="nut-cell"><div class="nut-val">210</div><div class="nut-unit">kcal</div><div class="nut-label">Kalori</div></div><div class="nut-cell"><div class="nut-val">3g</div><div class="nut-label">Protein</div></div><div class="nut-cell"><div class="nut-val">48g</div><div class="nut-label">Karb.</div></div><div class="nut-cell"><div class="nut-val">0g</div><div class="nut-label">Yağ</div></div></div></div>
+        <div class="ep-section"><div class="ep-label">⚠️ Alerjenler</div><div class="allergen-row"><span class="achip afree">✓ Tüm Alerjenlerden Arındırılmış</span></div></div>
+        <div class="add-row"><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('portakal-suyu',-1)">−</button><div class="qty-num" id="qty-portakal-suyu">1</div><button class="qty-btn" onclick="changeQty('portakal-suyu',1)">+</button></div><button class="add-btn" onclick="addToCart('portakal-suyu','Taze Sıkım Portakal Suyu','🍊',155)"><span>Sepete Ekle</span><span class="add-btn-price" id="abp-portakal-suyu">₺155</span></button></div>
       </div>
     </div>
   </div>
@@ -1301,8 +1877,17 @@ function getPriceById(id) {
     'izmirli-kofte':420,'smokey-burger':420,'citir-tavuk-burger':325,
     'izgara-tavuk':385,'mexicana-tavuk':405,
     'magnolia':195,'brownie':220,'cheesecake':220,
+    'tiramisu':265,'panna-cotta':245,'mini-limonlu-kek':235,'ny-cheesecake':255,'vegan-bitter-brownie':235,'fit-kase-tiramisu':255,
     'cafe-latte':155,'turk-kahvesi':115,'cafe-frappe':175,
-    'detox-green':180,'homemade-lemonade':165,'bubble-tea':180
+    'detox-green':180,'homemade-lemonade':165,'bubble-tea':180,
+    'cilek-milkshake':195,'buzlu-karamel-macchiato':185,'detox-green-juice':175,'zencefilli-kombucha':165,'portakal-suyu':155,
+    'citir-tavuk-sepeti':320,'truflu-patates':295,'firinda-kuskonmaz':265,'edamame':225,'citir-kalamar':345,
+    'green-power-bowl':355,'hawaii-poke-bowl':445,'falafel-kasesi':340,
+    'sezar-salata':355,'hellim-pancar-salata':360,
+    'fettuccine-alfredo':385,'geleneksel-bolognese':360,'karabugday-risotto':375,'kabak-spagetti-zoodle':335,'deniz-mahsulu-linguine':450,
+    'norvec-somonu':595,'karnabahar-biftek':295,
+    'bistro-cheeseburger':440,'bbq-dana-kaburga':695,'seitan-burger':390,
+    'viyana-schnitzel':420
   };
   return prices[id] || 0;
 }
